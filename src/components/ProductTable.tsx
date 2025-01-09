@@ -44,6 +44,23 @@ interface Product {
   updatedAt?: string;
   weight?: string;
   dimensions?: string;
+  origin?: string;
+  stockCountry?: string;
+  hsCode?: string;
+  packageQuantity?: number;
+  minPurchaseQuantity?: number;
+  estimatedDeliveryTime?: string;
+  currency?: string;
+  vat?: string;
+  cost?: number;
+  tags?: string;
+  packageDimensions?: {
+    width: number;
+    length: number;
+    height: number;
+    weight: number;
+    desi: number;
+  };
 }
 
 interface ProductTableProps {
@@ -87,17 +104,6 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
                 <Input id="name" defaultValue={product.name} readOnly className="bg-gray-50" />
               </div>
               <div className="grid gap-1.5">
-                <Label htmlFor="sku">Ürün Barkodu</Label>
-                <Input id="sku" defaultValue={product.sku} readOnly className="bg-gray-50" />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-3">
-              <div className="grid gap-1.5">
-                <Label htmlFor="category">Kategori</Label>
-                <Input id="category" defaultValue={product.category} readOnly className="bg-gray-50" />
-              </div>
-              <div className="grid gap-1.5">
                 <Label htmlFor="brand">Marka</Label>
                 <Input id="brand" defaultValue={product.brand} readOnly className="bg-gray-50" />
               </div>
@@ -105,85 +111,100 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="grid gap-1.5">
-                <Label htmlFor="price">Satış Fiyatı</Label>
+                <Label htmlFor="origin">Menşei</Label>
+                <Input id="origin" defaultValue={product.origin || "Belirtilmemiş"} readOnly className="bg-gray-50" />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="stockCountry">Stok Ülkesi</Label>
+                <Input id="stockCountry" defaultValue={product.stockCountry || "Belirtilmemiş"} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="sku">Stok Kodu</Label>
+                <Input id="sku" defaultValue={product.sku} readOnly className="bg-gray-50" />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="hsCode">HS Kod/GTIP</Label>
+                <Input id="hsCode" defaultValue={product.hsCode || "Belirtilmemiş"} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="stock">Stok Miktarı</Label>
+                <Input id="stock" type="number" defaultValue={product.stock} readOnly className="bg-gray-50" />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="packageQuantity">Koli İçi Adet</Label>
+                <Input id="packageQuantity" type="number" defaultValue={product.packageQuantity || 0} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="minPurchaseQuantity">Min Satın Alma Miktarı</Label>
+                <Input id="minPurchaseQuantity" type="number" defaultValue={product.minPurchaseQuantity || 1} readOnly className="bg-gray-50" />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="estimatedDeliveryTime">Tahmini Teslim Süresi (Gün)</Label>
+                <Input id="estimatedDeliveryTime" defaultValue={product.estimatedDeliveryTime || "1"} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="currency">Döviz</Label>
+                <Input id="currency" defaultValue={product.currency || "TL"} readOnly className="bg-gray-50" />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="vat">KDV (%)</Label>
+                <Input id="vat" defaultValue={product.vat || "20,00"} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="price">Satış Fiyatı (KDV Dahil)</Label>
                 <Input id="price" type="number" defaultValue={product.price} />
               </div>
               <div className="grid gap-1.5">
-                <Label htmlFor="stock">Stok</Label>
-                <Input id="stock" type="number" defaultValue={product.stock} readOnly className="bg-gray-50" />
+                <Label htmlFor="cost">Maliyet (KDV Dahil)</Label>
+                <Input id="cost" type="number" defaultValue={product.cost || product.price} readOnly className="bg-gray-50" />
               </div>
             </div>
 
             <div className="grid gap-1.5">
-              <Label htmlFor="status">Durum</Label>
-              <Select defaultValue={product.status}>
-                <SelectTrigger className="bg-gray-50">
-                  <SelectValue placeholder="Durum seçiniz" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Satışta">Satışta</SelectItem>
-                  <SelectItem value="Stokta Yok">Stokta Yok</SelectItem>
-                  <SelectItem value="Taslak">Taslak</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="tags">Etiketler (Anahtar Kelimeler)</Label>
+              <Input id="tags" defaultValue={product.tags || ""} readOnly className="bg-gray-50" />
             </div>
 
-            <div className="grid gap-1.5">
-              <Label>Ürün Açıklaması</Label>
-              <Textarea 
-                value={product.description || "Ürün açıklaması bulunmamaktadır."} 
-                readOnly 
-                className="bg-gray-50 min-h-[80px]"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="grid gap-1.5">
-                <Label className="flex items-center gap-1.5">
-                  <Weight className="h-3.5 w-3.5" />
-                  Ağırlık
-                </Label>
-                <Input 
-                  value={product.weight || "Belirtilmemiş"} 
-                  readOnly 
-                  className="bg-gray-50"
-                />
+            <div className="space-y-2">
+              <Label>Ürün Paket Boyutları</Label>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="grid gap-1.5">
+                  <Label htmlFor="width">En (cm)</Label>
+                  <Input id="width" type="number" defaultValue={product.packageDimensions?.width || 0} readOnly className="bg-gray-50" />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label htmlFor="length">Boy (cm)</Label>
+                  <Input id="length" type="number" defaultValue={product.packageDimensions?.length || 0} readOnly className="bg-gray-50" />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label htmlFor="height">Yükseklik (cm)</Label>
+                  <Input id="height" type="number" defaultValue={product.packageDimensions?.height || 0} readOnly className="bg-gray-50" />
+                </div>
               </div>
-              <div className="grid gap-1.5">
-                <Label className="flex items-center gap-1.5">
-                  <Ruler className="h-3.5 w-3.5" />
-                  Boyutlar
-                </Label>
-                <Input 
-                  value={product.dimensions || "Belirtilmemiş"} 
-                  readOnly 
-                  className="bg-gray-50"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="grid gap-1.5">
-                <Label className="flex items-center gap-1.5">
-                  <Calendar className="h-3.5 w-3.5" />
-                  Oluşturulma Tarihi
-                </Label>
-                <Input 
-                  value={product.createdAt || new Date().toLocaleDateString('tr-TR')} 
-                  readOnly 
-                  className="bg-gray-50"
-                />
-              </div>
-              <div className="grid gap-1.5">
-                <Label className="flex items-center gap-1.5">
-                  <Calendar className="h-3.5 w-3.5" />
-                  Son Güncelleme
-                </Label>
-                <Input 
-                  value={product.updatedAt || new Date().toLocaleDateString('tr-TR')} 
-                  readOnly 
-                  className="bg-gray-50"
-                />
+              <div className="grid grid-cols-2 gap-3">
+                <div className="grid gap-1.5">
+                  <Label htmlFor="weight">Ağırlık (gr)</Label>
+                  <Input id="weight" type="number" defaultValue={product.packageDimensions?.weight || 0} readOnly className="bg-gray-50" />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label htmlFor="desi">Desi</Label>
+                  <Input id="desi" type="number" defaultValue={product.packageDimensions?.desi || 0} readOnly className="bg-gray-50" />
+                </div>
               </div>
             </div>
           </div>
@@ -287,6 +308,43 @@ export const ProductTable = ({ products }: ProductTableProps) => {
       updatedAt: "2024-02-25",
       weight: "1.5 kg",
       dimensions: "30x20x10 cm"
+    },
+    {
+      id: "2",
+      name: "Makyaj Sabitleyici 100 ml Make-up Fixing Spray",
+      sku: "8681933080127",
+      category: "Cosmetics",
+      brand: "balera",
+      marketplaces: [
+        { name: "Trendyol", isConnected: true },
+        { name: "Amazon", isConnected: true }
+      ],
+      status: "Satışta",
+      price: 102.00,
+      stock: 240,
+      source: "Platform" as const,
+      description: "Make-up Fixing Spray",
+      createdAt: "2024-02-20",
+      updatedAt: "2024-02-25",
+      weight: "200 gr",
+      dimensions: "10x10x20 cm",
+      origin: "Türkiye",
+      stockCountry: "Türkiye",
+      hsCode: "HS Code",
+      packageQuantity: 36,
+      minPurchaseQuantity: 3,
+      estimatedDeliveryTime: "1",
+      currency: "TL",
+      vat: "20,00",
+      cost: 102.00,
+      tags: "makeup, spray",
+      packageDimensions: {
+        width: 10,
+        length: 10,
+        height: 20,
+        weight: 200,
+        desi: 1
+      }
     },
     // ... keep existing code (other products)
   ];
