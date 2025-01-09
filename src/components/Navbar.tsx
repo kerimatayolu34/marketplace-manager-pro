@@ -19,6 +19,9 @@ export const Navbar = () => {
               <Link to="/products" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900">
                 Ürünler
               </Link>
+              <Link to="/orders" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900">
+                Siparişler
+              </Link>
               <Link to="/integrations" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900">
                 Entegrasyonlar
               </Link>
