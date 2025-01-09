@@ -18,6 +18,7 @@ interface Order {
   date: string;
   total: number;
   items: number;
+  source: string;
 }
 
 interface OrderTableProps {
@@ -33,6 +34,7 @@ export const OrderTable = ({ orders }: OrderTableProps) => {
             <TableHead>Sipariş No</TableHead>
             <TableHead>Müşteri</TableHead>
             <TableHead>Pazaryeri</TableHead>
+            <TableHead>Kaynak</TableHead>
             <TableHead>Durum</TableHead>
             <TableHead>Tarih</TableHead>
             <TableHead>Toplam</TableHead>
@@ -46,6 +48,14 @@ export const OrderTable = ({ orders }: OrderTableProps) => {
               <TableCell>{order.orderNumber}</TableCell>
               <TableCell>{order.customerName}</TableCell>
               <TableCell>{order.marketplace}</TableCell>
+              <TableCell>
+                <span className={`px-2 py-1 rounded-full text-sm ${
+                  order.source === "Platform" ? "bg-blue-100 text-blue-800" :
+                  "bg-purple-100 text-purple-800"
+                }`}>
+                  {order.source}
+                </span>
+              </TableCell>
               <TableCell>
                 <span className={`px-2 py-1 rounded-full text-sm ${
                   order.status === "Tamamlandı" ? "bg-green-100 text-green-800" :

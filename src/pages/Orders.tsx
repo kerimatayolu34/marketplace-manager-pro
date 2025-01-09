@@ -14,6 +14,7 @@ export const orders = [
     date: "2024-01-09",
     total: 1250.99,
     items: 3,
+    source: "Platform"
   },
   {
     id: "2",
@@ -24,6 +25,7 @@ export const orders = [
     date: "2024-01-08",
     total: 2499.99,
     items: 5,
+    source: "Buyer"
   },
   {
     id: "3",
@@ -34,7 +36,41 @@ export const orders = [
     date: "2024-01-07",
     total: 799.99,
     items: 2,
+    source: "Platform"
   },
+  {
+    id: "4",
+    orderNumber: "SP123459",
+    customerName: "Fatma Şahin",
+    marketplace: "Trendyol",
+    status: "Tamamlandı",
+    date: "2024-01-06",
+    total: 1899.99,
+    items: 4,
+    source: "Buyer"
+  },
+  {
+    id: "5",
+    orderNumber: "SP123460",
+    customerName: "Ali Yıldız",
+    marketplace: "Trendyol",
+    status: "Hazırlanıyor",
+    date: "2024-01-05",
+    total: 3299.99,
+    items: 6,
+    source: "Platform"
+  },
+  {
+    id: "6",
+    orderNumber: "SP123461",
+    customerName: "Zeynep Çelik",
+    marketplace: "Trendyol",
+    status: "Tamamlandı",
+    date: "2024-01-04",
+    total: 1599.99,
+    items: 3,
+    source: "Buyer"
+  }
 ];
 
 const Orders = () => {

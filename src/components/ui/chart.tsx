@@ -417,7 +417,7 @@ export const Overview: React.FC = () => {
         },
       }}
     >
-      <RechartsPrimitive.BarChart data={data}>
+      <RechartsPrimitive.LineChart data={data}>
         <RechartsPrimitive.XAxis
           dataKey="name"
           stroke="#888888"
@@ -432,12 +432,15 @@ export const Overview: React.FC = () => {
           axisLine={false}
           tickFormatter={(value) => `₺${value}`}
         />
-        <RechartsPrimitive.Bar
+        <RechartsPrimitive.Line
+          type="monotone"
           dataKey="total"
-          radius={[4, 4, 0, 0]}
-          className="fill-primary"
+          stroke="hsl(var(--primary))"
+          strokeWidth={2}
+          dot={false}
         />
-      </RechartsPrimitive.BarChart>
+        <RechartsPrimitive.Tooltip content={<ChartTooltipContent />} />
+      </RechartsPrimitive.LineChart>
     </ChartContainer>
   )
 }
