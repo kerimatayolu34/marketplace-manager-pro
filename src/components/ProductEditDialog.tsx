@@ -4,7 +4,6 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Store, ShoppingCart, Package } from "lucide-react";
-import { Editor } from '@tinymce/tinymce-react';
 import { Product, Marketplace } from "@/types/product";
 
 const getMarketplaceIcon = (name: string) => {
@@ -111,28 +110,6 @@ export const ProductEditDialog = ({ product }: ProductEditDialogProps) => {
             <div className="grid gap-1.5">
               <Label htmlFor="cost">Maliyet (KDV Dahil)</Label>
               <Input id="cost" type="number" defaultValue={product.cost || product.price} readOnly className="bg-gray-50" />
-            </div>
-
-            <div className="grid gap-1.5">
-              <Label htmlFor="description">Ürün Açıklaması</Label>
-              <Editor
-                apiKey="your-api-key"
-                initialValue={product.description || ""}
-                init={{
-                  height: 300,
-                  menubar: false,
-                  plugins: [
-                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                    'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-                  ],
-                  toolbar: 'undo redo | blocks | ' +
-                    'bold italic forecolor | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | ' +
-                    'removeformat | help',
-                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                }}
-              />
             </div>
           </div>
 
