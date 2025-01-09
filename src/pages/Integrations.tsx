@@ -31,7 +31,7 @@ export default function Integrations() {
   ]
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 bg-background text-foreground min-h-screen">
       <h1 className="text-2xl font-bold mb-6">Pazaryeri Entegrasyonları</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -40,7 +40,7 @@ export default function Integrations() {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full h-32 flex flex-col items-center justify-center gap-4 hover:bg-accent"
+                className="w-full h-32 flex flex-col items-center justify-center gap-4 hover:bg-accent bg-card"
                 onClick={() => setSelectedMarketplace(marketplace)}
               >
                 <img 
