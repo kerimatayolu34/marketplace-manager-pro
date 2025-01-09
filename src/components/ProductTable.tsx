@@ -73,98 +73,74 @@ const getMarketplaceIcon = (name: string) => {
 
 const ProductEditDialog = ({ product }: { product: Product }) => {
   return (
-    <DialogContent className="sm:max-w-[725px]">
+    <DialogContent className="sm:max-w-[925px]">
       <DialogHeader>
         <DialogTitle>Ürün Düzenle</DialogTitle>
       </DialogHeader>
-      <div className="grid gap-6">
-        <div className="grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Ürün Adı</Label>
-              <Input id="name" defaultValue={product.name} readOnly className="bg-gray-50" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="sku">Ürün Barkodu</Label>
-              <Input id="sku" defaultValue={product.sku} readOnly className="bg-gray-50" />
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="category">Kategori</Label>
-              <Input id="category" defaultValue={product.category} readOnly className="bg-gray-50" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="brand">Marka</Label>
-              <Input id="brand" defaultValue={product.brand} readOnly className="bg-gray-50" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="price">Satış Fiyatı</Label>
-              <Input id="price" type="number" defaultValue={product.price} />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="stock">Stok</Label>
-              <Input id="stock" type="number" defaultValue={product.stock} readOnly className="bg-gray-50" />
-            </div>
-          </div>
-
-          <div className="grid gap-2">
-            <Label htmlFor="status">Durum</Label>
-            <Select defaultValue={product.status}>
-              <SelectTrigger className="bg-gray-50">
-                <SelectValue placeholder="Durum seçiniz" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Satışta">Satışta</SelectItem>
-                <SelectItem value="Stokta Yok">Stokta Yok</SelectItem>
-                <SelectItem value="Taslak">Taslak</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
+      <div className="grid gap-4">
+        <div className="grid grid-cols-2 gap-6">
+          {/* Left Column */}
           <div className="space-y-4">
-            <div className="grid gap-2">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="name">Ürün Adı</Label>
+                <Input id="name" defaultValue={product.name} readOnly className="bg-gray-50" />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="sku">Ürün Barkodu</Label>
+                <Input id="sku" defaultValue={product.sku} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="category">Kategori</Label>
+                <Input id="category" defaultValue={product.category} readOnly className="bg-gray-50" />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="brand">Marka</Label>
+                <Input id="brand" defaultValue={product.brand} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label htmlFor="price">Satış Fiyatı</Label>
+                <Input id="price" type="number" defaultValue={product.price} />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="stock">Stok</Label>
+                <Input id="stock" type="number" defaultValue={product.stock} readOnly className="bg-gray-50" />
+              </div>
+            </div>
+
+            <div className="grid gap-1.5">
+              <Label htmlFor="status">Durum</Label>
+              <Select defaultValue={product.status}>
+                <SelectTrigger className="bg-gray-50">
+                  <SelectValue placeholder="Durum seçiniz" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Satışta">Satışta</SelectItem>
+                  <SelectItem value="Stokta Yok">Stokta Yok</SelectItem>
+                  <SelectItem value="Taslak">Taslak</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="grid gap-1.5">
               <Label>Ürün Açıklaması</Label>
               <Textarea 
                 value={product.description || "Ürün açıklaması bulunmamaktadır."} 
                 readOnly 
-                className="bg-gray-50 min-h-[100px]"
+                className="bg-gray-50 min-h-[80px]"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  Oluşturulma Tarihi
-                </Label>
-                <Input 
-                  value={product.createdAt || new Date().toLocaleDateString('tr-TR')} 
-                  readOnly 
-                  className="bg-gray-50"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  Son Güncelleme
-                </Label>
-                <Input 
-                  value={product.updatedAt || new Date().toLocaleDateString('tr-TR')} 
-                  readOnly 
-                  className="bg-gray-50"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label className="flex items-center gap-2">
-                  <Weight className="h-4 w-4" />
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label className="flex items-center gap-1.5">
+                  <Weight className="h-3.5 w-3.5" />
                   Ağırlık
                 </Label>
                 <Input 
@@ -173,9 +149,9 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
                   className="bg-gray-50"
                 />
               </div>
-              <div className="grid gap-2">
-                <Label className="flex items-center gap-2">
-                  <Ruler className="h-4 w-4" />
+              <div className="grid gap-1.5">
+                <Label className="flex items-center gap-1.5">
+                  <Ruler className="h-3.5 w-3.5" />
                   Boyutlar
                 </Label>
                 <Input 
@@ -185,50 +161,78 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
                 />
               </div>
             </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-1.5">
+                <Label className="flex items-center gap-1.5">
+                  <Calendar className="h-3.5 w-3.5" />
+                  Oluşturulma Tarihi
+                </Label>
+                <Input 
+                  value={product.createdAt || new Date().toLocaleDateString('tr-TR')} 
+                  readOnly 
+                  className="bg-gray-50"
+                />
+              </div>
+              <div className="grid gap-1.5">
+                <Label className="flex items-center gap-1.5">
+                  <Calendar className="h-3.5 w-3.5" />
+                  Son Güncelleme
+                </Label>
+                <Input 
+                  value={product.updatedAt || new Date().toLocaleDateString('tr-TR')} 
+                  readOnly 
+                  className="bg-gray-50"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div>
+            <Tabs defaultValue={product.marketplaces[0]?.name.toLowerCase() || "trendyol"} className="w-full">
+              <TabsList className="w-full">
+                {product.marketplaces.map((marketplace, index) => (
+                  <TabsTrigger 
+                    key={index} 
+                    value={marketplace.name.toLowerCase()}
+                    className="flex items-center gap-2"
+                  >
+                    {getMarketplaceIcon(marketplace.name)}
+                    {marketplace.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              
+              {product.marketplaces.map((marketplace, index) => (
+                <TabsContent key={index} value={marketplace.name.toLowerCase()}>
+                  <div className="grid gap-3 py-2">
+                    <div className="grid gap-1.5">
+                      <Label>Pazaryeri Durumu</Label>
+                      <Select defaultValue={marketplace.isConnected ? "connected" : "disconnected"}>
+                        <SelectTrigger className="bg-gray-50">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="connected">Bağlı</SelectItem>
+                          <SelectItem value="disconnected">Bağlı Değil</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid gap-1.5">
+                      <Label>Pazaryeri Ürün Kodu</Label>
+                      <Input placeholder="Pazaryeri ürün kodunu giriniz" readOnly className="bg-gray-50" />
+                    </div>
+                    <div className="grid gap-1.5">
+                      <Label>Pazaryeri Komisyon Oranı (%)</Label>
+                      <Input type="number" placeholder="Komisyon oranını giriniz" readOnly className="bg-gray-50" />
+                    </div>
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
           </div>
         </div>
-
-        <Tabs defaultValue={product.marketplaces[0]?.name.toLowerCase() || "trendyol"} className="w-full">
-          <TabsList className="w-full">
-            {product.marketplaces.map((marketplace, index) => (
-              <TabsTrigger 
-                key={index} 
-                value={marketplace.name.toLowerCase()}
-                className="flex items-center gap-2"
-              >
-                {getMarketplaceIcon(marketplace.name)}
-                {marketplace.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          
-          {product.marketplaces.map((marketplace, index) => (
-            <TabsContent key={index} value={marketplace.name.toLowerCase()}>
-              <div className="grid gap-4 py-4">
-                <div className="grid gap-2">
-                  <Label>Pazaryeri Durumu</Label>
-                  <Select defaultValue={marketplace.isConnected ? "connected" : "disconnected"}>
-                    <SelectTrigger className="bg-gray-50">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="connected">Bağlı</SelectItem>
-                      <SelectItem value="disconnected">Bağlı Değil</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid gap-2">
-                  <Label>Pazaryeri Ürün Kodu</Label>
-                  <Input placeholder="Pazaryeri ürün kodunu giriniz" readOnly className="bg-gray-50" />
-                </div>
-                <div className="grid gap-2">
-                  <Label>Pazaryeri Komisyon Oranı (%)</Label>
-                  <Input type="number" placeholder="Komisyon oranını giriniz" readOnly className="bg-gray-50" />
-                </div>
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
       </div>
     </DialogContent>
   );
