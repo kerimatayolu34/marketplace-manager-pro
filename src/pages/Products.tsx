@@ -2,6 +2,7 @@ import { ProductTable } from "@/components/ProductTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { useState } from "react";
 
 interface Marketplace {
   name: string;
@@ -121,6 +122,16 @@ const products = [
 ];
 
 const Products = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredProducts = products.filter((product) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      product.name.toLowerCase().includes(searchLower) ||
+      product.sku.toLowerCase().includes(searchLower)
+    );
+  });
+
   return (
     <div className="min-h-screen bg-gray-50">
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -136,12 +147,14 @@ const Products = () => {
               <Input
                 placeholder="Ürün adı veya Ürün barkodu ile ara"
                 className="pl-10"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <Button variant="outline">Detaylı Filtrele</Button>
           </div>
 
-          <ProductTable products={products} />
+          <ProductTable products={filteredProducts} />
         </div>
       </main>
     </div>
