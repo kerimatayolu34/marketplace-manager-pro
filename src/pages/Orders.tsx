@@ -3,35 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-const Orders = () => {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Siparişler</h1>
-          </div>
-          
-          <div className="mb-6 flex gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <Input
-                placeholder="Sipariş numarası veya müşteri adı ile ara"
-                className="pl-10"
-              />
-            </div>
-            <Button variant="outline">Detaylı Filtrele</Button>
-          </div>
-
-          <OrderTable orders={orders} />
-        </div>
-      </main>
-    </div>
-  );
-};
-
 // Örnek sipariş verileri
-const orders = [
+export const orders = [
   {
     id: "1",
     orderNumber: "SP123456",
@@ -63,5 +36,32 @@ const orders = [
     items: 2,
   },
 ];
+
+const Orders = () => {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Siparişler</h1>
+          </div>
+          
+          <div className="mb-6 flex gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Input
+                placeholder="Sipariş numarası veya müşteri adı ile ara"
+                className="pl-10"
+              />
+            </div>
+            <Button variant="outline">Detaylı Filtrele</Button>
+          </div>
+
+          <OrderTable orders={orders} />
+        </div>
+      </main>
+    </div>
+  );
+};
 
 export default Orders;

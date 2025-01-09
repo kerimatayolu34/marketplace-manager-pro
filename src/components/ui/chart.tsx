@@ -1,6 +1,5 @@
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-
 import { cn } from "@/lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
@@ -351,6 +350,96 @@ function getPayloadConfigFromPayload(
   return configLabelKey in config
     ? config[configLabelKey]
     : config[key as keyof typeof config]
+}
+
+// Add the Overview component
+export const Overview: React.FC = () => {
+  const data = [
+    {
+      name: 'Jan',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Feb',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Mar',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Apr',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'May',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Jun',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Jul',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Aug',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Sep',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Oct',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Nov',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+    {
+      name: 'Dec',
+      total: Math.floor(Math.random() * 5000) + 1000,
+    },
+  ]
+
+  return (
+    <ChartContainer
+      className="aspect-[4/3]"
+      config={{
+        total: {
+          theme: {
+            light: "hsl(var(--foreground))",
+            dark: "hsl(var(--foreground))",
+          },
+        },
+      }}
+    >
+      <RechartsPrimitive.BarChart data={data}>
+        <RechartsPrimitive.XAxis
+          dataKey="name"
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+        />
+        <RechartsPrimitive.YAxis
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `₺${value}`}
+        />
+        <RechartsPrimitive.Bar
+          dataKey="total"
+          radius={[4, 4, 0, 0]}
+          className="fill-primary"
+        />
+      </RechartsPrimitive.BarChart>
+    </ChartContainer>
+  )
 }
 
 export {
