@@ -10,17 +10,21 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
 
+interface Marketplace {
+  name: string;
+  isConnected: boolean;
+}
+
 interface Product {
   id: string;
   name: string;
   sku: string;
   category: string;
   brand: string;
-  marketplace: string;
+  marketplaces: Marketplace[];
   status: string;
   price: number;
   stock: number;
-  isConnected: boolean;
 }
 
 interface ProductTableProps {
@@ -51,13 +55,19 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableCell>{product.sku}</TableCell>
               <TableCell>{product.category}</TableCell>
               <TableCell>{product.brand}</TableCell>
-              <TableCell className="flex items-center gap-2">
-                {product.marketplace}
-                {product.isConnected ? (
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                ) : (
-                  <XCircle className="h-4 w-4 text-red-500" />
-                )}
+              <TableCell>
+                <div className="flex flex-col gap-1">
+                  {product.marketplaces.map((marketplace, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      {marketplace.name}
+                      {marketplace.isConnected ? (
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                      ) : (
+                        <XCircle className="h-4 w-4 text-red-500" />
+                      )}
+                    </div>
+                  ))}
+                </div>
               </TableCell>
               <TableCell>
                 <span className={`px-2 py-1 rounded-full text-sm ${

@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
+interface Marketplace {
+  name: string;
+  isConnected: boolean;
+}
+
 const products = [
   {
     id: "1",
@@ -11,11 +16,13 @@ const products = [
     sku: "AL48YT0048",
     category: "Hurç",
     brand: "Buffer",
-    marketplace: "Trendyol",
+    marketplaces: [
+      { name: "Trendyol", isConnected: true },
+      { name: "Amazon", isConnected: true }
+    ],
     status: "Satışta",
     price: 394.99,
     stock: 690,
-    isConnected: true,
   },
   {
     id: "2",
@@ -23,11 +30,13 @@ const products = [
     sku: "AL48YT0049",
     category: "Organizer",
     brand: "HomeStore",
-    marketplace: "Amazon",
+    marketplaces: [
+      { name: "Amazon", isConnected: true },
+      { name: "Hepsiburada", isConnected: true }
+    ],
     status: "Satışta",
     price: 249.99,
     stock: 450,
-    isConnected: true,
   },
   {
     id: "3",
@@ -35,11 +44,12 @@ const products = [
     sku: "AL48YT0050",
     category: "Düzenleyici",
     brand: "SmartHome",
-    marketplace: "Hepsiburada",
+    marketplaces: [
+      { name: "Hepsiburada", isConnected: true }
+    ],
     status: "Satışta",
     price: 179.99,
     stock: 320,
-    isConnected: true,
   },
   {
     id: "4",
@@ -47,11 +57,13 @@ const products = [
     sku: "AL48YT0051",
     category: "Saklama",
     brand: "Buffer",
-    marketplace: "Trendyol",
+    marketplaces: [
+      { name: "Trendyol", isConnected: true },
+      { name: "Amazon", isConnected: false }
+    ],
     status: "Stokta Yok",
     price: 129.99,
     stock: 0,
-    isConnected: true,
   },
   {
     id: "5",
@@ -59,11 +71,12 @@ const products = [
     sku: "AL48YT0052",
     category: "Organizer",
     brand: "BeautyBox",
-    marketplace: "Amazon",
+    marketplaces: [
+      { name: "Amazon", isConnected: false }
+    ],
     status: "Satışta",
     price: 299.99,
     stock: 250,
-    isConnected: false,
   },
   {
     id: "6",
@@ -71,11 +84,13 @@ const products = [
     sku: "AL48YT0053",
     category: "Düzenleyici",
     brand: "HomeStore",
-    marketplace: "Hepsiburada",
+    marketplaces: [
+      { name: "Hepsiburada", isConnected: true },
+      { name: "Trendyol", isConnected: true }
+    ],
     status: "Satışta",
     price: 149.99,
     stock: 180,
-    isConnected: true,
   },
   {
     id: "7",
@@ -83,11 +98,12 @@ const products = [
     sku: "AL48YT0054",
     category: "Düzenleyici",
     brand: "SmartHome",
-    marketplace: "Trendyol",
+    marketplaces: [
+      { name: "Trendyol", isConnected: true }
+    ],
     status: "Satışta",
     price: 599.99,
     stock: 120,
-    isConnected: true,
   },
   {
     id: "8",
@@ -95,18 +111,19 @@ const products = [
     sku: "AL48YT0055",
     category: "Organizer",
     brand: "BeautyBox",
-    marketplace: "Amazon",
+    marketplaces: [
+      { name: "Amazon", isConnected: true },
+      { name: "Hepsiburada", isConnected: true }
+    ],
     status: "Satışta",
     price: 199.99,
     stock: 300,
-    isConnected: true,
   }
 ];
 
 const Products = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="flex justify-between items-center mb-8">
