@@ -177,16 +177,19 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
         </div>
 
         <Tabs defaultValue={product.marketplaces[0]?.name.toLowerCase() || "trendyol"} className="w-full">
-          {product.marketplaces.map((marketplace, index) => (
-            <TabsTrigger 
-              key={index} 
-              value={marketplace.name.toLowerCase()}
-              className="flex items-center gap-2"
-            >
-              {getMarketplaceIcon(marketplace.name)}
-              {marketplace.name}
-            </TabsTrigger>
-          ))}
+          <TabsList className="w-full">
+            {product.marketplaces.map((marketplace, index) => (
+              <TabsTrigger 
+                key={index} 
+                value={marketplace.name.toLowerCase()}
+                className="flex items-center gap-2"
+              >
+                {getMarketplaceIcon(marketplace.name)}
+                {marketplace.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          
           {product.marketplaces.map((marketplace, index) => (
             <TabsContent key={index} value={marketplace.name.toLowerCase()}>
               <div className="grid gap-4 py-4">
