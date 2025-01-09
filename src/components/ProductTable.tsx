@@ -46,13 +46,13 @@ interface ProductTableProps {
 const getMarketplaceIcon = (name: string) => {
   switch (name.toLowerCase()) {
     case "trendyol":
-      return <Store className="h-5 w-5 text-orange-500" />;
+      return <Store className="h-5 w-5 text-orange-500" title="Trendyol" />;
     case "amazon":
-      return <ShoppingCart className="h-5 w-5 text-yellow-500" />;
+      return <ShoppingCart className="h-5 w-5 text-yellow-500" title="Amazon" />;
     case "hepsiburada":
-      return <Package className="h-5 w-5 text-red-500" />;
+      return <Package className="h-5 w-5 text-red-500" title="Hepsiburada" />;
     default:
-      return <Store className="h-5 w-5 text-gray-500" />;
+      return <Store className="h-5 w-5 text-gray-500" title={name} />;
   }
 };
 
@@ -208,7 +208,7 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableHead>Ürün Barkodu</TableHead>
               <TableHead>Ürün Kategorisi</TableHead>
               <TableHead>Marka</TableHead>
-              <TableHead>Pazaryeri</TableHead>
+              <TableHead className="w-[100px]">Pazaryeri</TableHead>
               <TableHead>Durum</TableHead>
               <TableHead>Fiyat</TableHead>
               <TableHead>Stok</TableHead>
@@ -237,11 +237,10 @@ export const ProductTable = ({ products }: ProductTableProps) => {
                       .map((marketplace, index) => (
                         <div
                           key={index}
-                          className="flex items-center gap-1 bg-gray-100 rounded-full px-3 py-1"
+                          className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full"
                           title={marketplace.name}
                         >
                           {getMarketplaceIcon(marketplace.name)}
-                          <span className="text-sm">{marketplace.name}</span>
                         </div>
                       ))}
                   </div>
