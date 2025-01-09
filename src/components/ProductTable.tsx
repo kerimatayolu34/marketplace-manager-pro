@@ -22,6 +22,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { Editor } from '@tinymce/tinymce-react';
 
 interface Marketplace {
   name: string;
@@ -48,12 +49,10 @@ interface Product {
   stockCountry?: string;
   hsCode?: string;
   packageQuantity?: number;
-  minPurchaseQuantity?: number;
   estimatedDeliveryTime?: string;
   currency?: string;
   vat?: string;
   cost?: number;
-  tags?: string;
   packageDimensions?: {
     width: number;
     length: number;
@@ -144,68 +143,51 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="grid gap-1.5">
-                <Label htmlFor="minPurchaseQuantity">Min Satın Alma Miktarı</Label>
-                <Input id="minPurchaseQuantity" type="number" defaultValue={product.minPurchaseQuantity || 1} readOnly className="bg-gray-50" />
-              </div>
-              <div className="grid gap-1.5">
                 <Label htmlFor="estimatedDeliveryTime">Tahmini Teslim Süresi (Gün)</Label>
                 <Input id="estimatedDeliveryTime" defaultValue={product.estimatedDeliveryTime || "1"} readOnly className="bg-gray-50" />
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
               <div className="grid gap-1.5">
                 <Label htmlFor="currency">Döviz</Label>
                 <Input id="currency" defaultValue={product.currency || "TL"} readOnly className="bg-gray-50" />
               </div>
-              <div className="grid gap-1.5">
-                <Label htmlFor="vat">KDV (%)</Label>
-                <Input id="vat" defaultValue={product.vat || "20,00"} readOnly className="bg-gray-50" />
-              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="grid gap-1.5">
-                <Label htmlFor="price">Satış Fiyatı (KDV Dahil)</Label>
-                <Input id="price" type="number" defaultValue={product.price} />
+                <Label htmlFor="vat">KDV (%)</Label>
+                <Input id="vat" defaultValue={product.vat || "20,00"} readOnly className="bg-gray-50" />
               </div>
               <div className="grid gap-1.5">
-                <Label htmlFor="cost">Maliyet (KDV Dahil)</Label>
-                <Input id="cost" type="number" defaultValue={product.cost || product.price} readOnly className="bg-gray-50" />
+                <Label htmlFor="price">Satış Fiyatı (KDV Dahil)</Label>
+                <Input id="price" type="number" defaultValue={product.price} />
               </div>
             </div>
 
             <div className="grid gap-1.5">
-              <Label htmlFor="tags">Etiketler (Anahtar Kelimeler)</Label>
-              <Input id="tags" defaultValue={product.tags || ""} readOnly className="bg-gray-50" />
+              <Label htmlFor="cost">Maliyet (KDV Dahil)</Label>
+              <Input id="cost" type="number" defaultValue={product.cost || product.price} readOnly className="bg-gray-50" />
             </div>
 
-            <div className="space-y-2">
-              <Label>Ürün Paket Boyutları</Label>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="grid gap-1.5">
-                  <Label htmlFor="width">En (cm)</Label>
-                  <Input id="width" type="number" defaultValue={product.packageDimensions?.width || 0} readOnly className="bg-gray-50" />
-                </div>
-                <div className="grid gap-1.5">
-                  <Label htmlFor="length">Boy (cm)</Label>
-                  <Input id="length" type="number" defaultValue={product.packageDimensions?.length || 0} readOnly className="bg-gray-50" />
-                </div>
-                <div className="grid gap-1.5">
-                  <Label htmlFor="height">Yükseklik (cm)</Label>
-                  <Input id="height" type="number" defaultValue={product.packageDimensions?.height || 0} readOnly className="bg-gray-50" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="grid gap-1.5">
-                  <Label htmlFor="weight">Ağırlık (gr)</Label>
-                  <Input id="weight" type="number" defaultValue={product.packageDimensions?.weight || 0} readOnly className="bg-gray-50" />
-                </div>
-                <div className="grid gap-1.5">
-                  <Label htmlFor="desi">Desi</Label>
-                  <Input id="desi" type="number" defaultValue={product.packageDimensions?.desi || 0} readOnly className="bg-gray-50" />
-                </div>
-              </div>
+            <div className="grid gap-1.5">
+              <Label htmlFor="description">Ürün Açıklaması</Label>
+              <Editor
+                apiKey="your-api-key"
+                initialValue={product.description || ""}
+                init={{
+                  height: 300,
+                  menubar: false,
+                  plugins: [
+                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                    'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                  ],
+                  toolbar: 'undo redo | blocks | ' +
+                    'bold italic forecolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                }}
+              />
             </div>
           </div>
 
@@ -332,12 +314,10 @@ export const ProductTable = ({ products }: ProductTableProps) => {
       stockCountry: "Türkiye",
       hsCode: "HS Code",
       packageQuantity: 36,
-      minPurchaseQuantity: 3,
       estimatedDeliveryTime: "1",
       currency: "TL",
       vat: "20,00",
       cost: 102.00,
-      tags: "makeup, spray",
       packageDimensions: {
         width: 10,
         length: 10,
