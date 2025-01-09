@@ -4,11 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState } from "react";
 
-interface Marketplace {
-  name: string;
-  isConnected: boolean;
-}
-
 const products = [
   {
     id: "1",
@@ -23,6 +18,7 @@ const products = [
     status: "Satışta",
     price: 394.99,
     stock: 690,
+    source: "Platform" as const
   },
   {
     id: "2",
@@ -37,6 +33,7 @@ const products = [
     status: "Satışta",
     price: 249.99,
     stock: 450,
+    source: "Buyer" as const
   },
   {
     id: "3",
@@ -50,6 +47,7 @@ const products = [
     status: "Satışta",
     price: 179.99,
     stock: 320,
+    source: "Platform" as const
   },
   {
     id: "4",
@@ -64,6 +62,7 @@ const products = [
     status: "Stokta Yok",
     price: 129.99,
     stock: 0,
+    source: "Buyer" as const
   },
   {
     id: "5",
@@ -77,6 +76,7 @@ const products = [
     status: "Satışta",
     price: 299.99,
     stock: 250,
+    source: "Platform" as const
   },
   {
     id: "6",
@@ -91,6 +91,7 @@ const products = [
     status: "Satışta",
     price: 149.99,
     stock: 180,
+    source: "Buyer" as const
   },
   {
     id: "7",
@@ -104,6 +105,7 @@ const products = [
     status: "Satışta",
     price: 599.99,
     stock: 120,
+    source: "Platform" as const
   },
   {
     id: "8",
@@ -118,6 +120,7 @@ const products = [
     status: "Satışta",
     price: 199.99,
     stock: 300,
+    source: "Buyer" as const
   }
 ];
 

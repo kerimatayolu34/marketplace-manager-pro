@@ -37,6 +37,7 @@ interface Product {
   status: string;
   price: number;
   stock: number;
+  source: "Platform" | "Buyer";
 }
 
 interface ProductTableProps {
@@ -44,15 +45,23 @@ interface ProductTableProps {
 }
 
 const getMarketplaceIcon = (name: string) => {
+  const props = {
+    className: `h-5 w-5 ${
+      name.toLowerCase() === "trendyol" ? "text-orange-500" :
+      name.toLowerCase() === "amazon" ? "text-yellow-500" :
+      name.toLowerCase() === "hepsiburada" ? "text-red-500" : "text-gray-500"
+    }`
+  };
+
   switch (name.toLowerCase()) {
     case "trendyol":
-      return <Store className="h-5 w-5 text-orange-500" title="Trendyol" />;
+      return <Store {...props} aria-label="Trendyol" />;
     case "amazon":
-      return <ShoppingCart className="h-5 w-5 text-yellow-500" title="Amazon" />;
+      return <ShoppingCart {...props} aria-label="Amazon" />;
     case "hepsiburada":
-      return <Package className="h-5 w-5 text-red-500" title="Hepsiburada" />;
+      return <Package {...props} aria-label="Hepsiburada" />;
     default:
-      return <Store className="h-5 w-5 text-gray-500" title={name} />;
+      return <Store {...props} aria-label={name} />;
   }
 };
 
@@ -178,7 +187,6 @@ export const ProductTable = ({ products }: ProductTableProps) => {
 
   const handleBulkAction = () => {
     console.log('Selected products:', selectedProducts);
-    // Implement bulk action logic here
   };
 
   return (
@@ -210,6 +218,7 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableHead>Marka</TableHead>
               <TableHead className="w-[100px]">Pazaryeri</TableHead>
               <TableHead>Durum</TableHead>
+              <TableHead>Kaynak</TableHead>
               <TableHead>Fiyat</TableHead>
               <TableHead>Stok</TableHead>
               <TableHead></TableHead>
@@ -250,6 +259,13 @@ export const ProductTable = ({ products }: ProductTableProps) => {
                     product.status === "Satışta" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"
                   }`}>
                     {product.status}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <span className={`px-2 py-1 rounded-full text-sm ${
+                    product.source === "Platform" ? "bg-blue-100 text-blue-800" : "bg-purple-100 text-purple-800"
+                  }`}>
+                    {product.source}
                   </span>
                 </TableCell>
                 <TableCell>{product.price}₺</TableCell>
