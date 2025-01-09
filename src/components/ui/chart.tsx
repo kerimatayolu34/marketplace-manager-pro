@@ -356,52 +356,52 @@ function getPayloadConfigFromPayload(
 export const Overview: React.FC = () => {
   const data = [
     {
-      name: 'Jan',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Ocak',
+      total: 2500,
     },
     {
-      name: 'Feb',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Şubat',
+      total: 3500,
     },
     {
-      name: 'Mar',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Mart',
+      total: 4500,
     },
     {
-      name: 'Apr',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Nisan',
+      total: 2780,
     },
     {
-      name: 'May',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Mayıs',
+      total: 1890,
     },
     {
-      name: 'Jun',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Haziran',
+      total: 2390,
     },
     {
-      name: 'Jul',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Temmuz',
+      total: 3490,
     },
     {
-      name: 'Aug',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Ağustos', 
+      total: 4200,
     },
     {
-      name: 'Sep',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Eylül',
+      total: 5000,
     },
     {
-      name: 'Oct',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Ekim',
+      total: 4500,
     },
     {
-      name: 'Nov',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Kasım',
+      total: 3500,
     },
     {
-      name: 'Dec',
-      total: Math.floor(Math.random() * 5000) + 1000,
+      name: 'Aralık',
+      total: 4000,
     },
   ]
 
