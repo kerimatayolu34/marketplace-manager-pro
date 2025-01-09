@@ -138,7 +138,6 @@ const Products = () => {
         <div className="px-4 py-6 sm:px-0">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Ürünler</h1>
-            <Button>Ürün Ekle</Button>
           </div>
           
           <div className="mb-6 flex gap-4">

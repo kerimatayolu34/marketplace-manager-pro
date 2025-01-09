@@ -7,8 +7,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { ShoppingCart, Store, Package } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface Marketplace {
   name: string;
@@ -42,6 +50,34 @@ const getMarketplaceIcon = (name: string) => {
     default:
       return <Store className="h-5 w-5 text-gray-500" />;
   }
+};
+
+const ProductEditDialog = ({ product }: { product: Product }) => {
+  return (
+    <DialogContent className="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle>Ürün Düzenle</DialogTitle>
+      </DialogHeader>
+      <div className="grid gap-4 py-4">
+        <div className="grid gap-2">
+          <Label htmlFor="name">Ürün Adı</Label>
+          <Input id="name" defaultValue={product.name} />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="sku">Ürün Barkodu</Label>
+          <Input id="sku" defaultValue={product.sku} />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="price">Fiyat</Label>
+          <Input id="price" type="number" defaultValue={product.price} />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="stock">Stok</Label>
+          <Input id="stock" type="number" defaultValue={product.stock} />
+        </div>
+      </div>
+    </DialogContent>
+  );
 };
 
 export const ProductTable = ({ products }: ProductTableProps) => {
@@ -94,9 +130,14 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableCell>{product.price}₺</TableCell>
               <TableCell>{product.stock}</TableCell>
               <TableCell>
-                <Button variant="ghost" size="sm" asChild>
-                  <Link to={`/products/${product.id}`}>Düzenle</Link>
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="ghost" size="sm">
+                      Düzenle
+                    </Button>
+                  </DialogTrigger>
+                  <ProductEditDialog product={product} />
+                </Dialog>
               </TableCell>
             </TableRow>
           ))}
