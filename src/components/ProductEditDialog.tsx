@@ -7,7 +7,6 @@ import { MarketplacesTab } from "./product-edit/MarketplacesTab"
 import { ImagesTab } from "./product-edit/ImagesTab"
 import { AttributesTab } from "./product-edit/AttributesTab"
 import { ShippingTab } from "./product-edit/ShippingTab"
-import { HepsiburadaTab } from "./product-edit/HepsiburadaTab"
 
 interface ProductEditDialogProps {
   product: Product;
@@ -28,7 +27,6 @@ export const ProductEditDialog = ({ product }: ProductEditDialogProps) => {
               <TabsTrigger value="images">Görseller</TabsTrigger>
               <TabsTrigger value="attributes">Özellikler</TabsTrigger>
               <TabsTrigger value="shipping">Kargo Bilgileri</TabsTrigger>
-              <TabsTrigger value="hepsiburada">Hepsiburada</TabsTrigger>
             </TabsList>
 
             <TabsContent value="general">
@@ -49,10 +47,6 @@ export const ProductEditDialog = ({ product }: ProductEditDialogProps) => {
 
             <TabsContent value="shipping">
               <ShippingTab product={product} />
-            </TabsContent>
-
-            <TabsContent value="hepsiburada">
-              <HepsiburadaTab product={product} />
             </TabsContent>
           </Tabs>
         </div>

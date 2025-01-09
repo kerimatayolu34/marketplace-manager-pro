@@ -77,6 +77,49 @@ export const MarketplacesTab = ({ product }: MarketplacesTabProps) => {
               <Label>Gönderim Adresi ID</Label>
               <Input defaultValue={marketplace.shipmentAddressId || ""} placeholder="Gönderim adresi ID giriniz" />
             </div>
+            
+            {marketplace.name.toLowerCase() === "hepsiburada" && (
+              <>
+                <div className="grid gap-1.5">
+                  <Label>Garanti Süresi (Ay)</Label>
+                  <Input type="number" placeholder="Garanti süresini giriniz" />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label>Maksimum Teslimat Süresi (Gün)</Label>
+                  <Input type="number" placeholder="Maksimum teslimat süresini giriniz" />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label>Sevkiyat Süresi (Gün)</Label>
+                  <Input type="number" placeholder="Sevkiyat süresini giriniz" />
+                </div>
+                <div className="grid gap-1.5">
+                  <Label>Ürün Durumu</Label>
+                  <Select defaultValue="new">
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="new">Yeni</SelectItem>
+                      <SelectItem value="used">Kullanılmış</SelectItem>
+                      <SelectItem value="refurbished">Yenilenmiş</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-1.5">
+                  <Label>Stok Durumu</Label>
+                  <Select defaultValue="inStock">
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="inStock">Stokta</SelectItem>
+                      <SelectItem value="outOfStock">Stokta Yok</SelectItem>
+                      <SelectItem value="preorder">Ön Sipariş</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </>
+            )}
           </div>
         </TabsContent>
       ))}
