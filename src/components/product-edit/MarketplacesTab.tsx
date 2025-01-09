@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Store, ShoppingCart, Package } from "lucide-react"
+import { Store, ShoppingCart, Package, Building2, Factory } from "lucide-react"
 import { Product } from "@/types/product"
 
 interface MarketplacesTabProps {
@@ -14,7 +14,11 @@ const getMarketplaceIcon = (name: string) => {
     className: `h-5 w-5 ${
       name.toLowerCase() === "trendyol" ? "text-orange-500" :
       name.toLowerCase() === "amazon" ? "text-yellow-500" :
-      name.toLowerCase() === "hepsiburada" ? "text-red-500" : "text-gray-500"
+      name.toLowerCase() === "hepsiburada" ? "text-red-500" :
+      name.toLowerCase() === "n11" ? "text-blue-500" :
+      name.toLowerCase() === "gittigidiyor" ? "text-purple-500" :
+      name.toLowerCase() === "ciceksepeti" ? "text-pink-500" :
+      "text-gray-500"
     }`
   };
 
@@ -25,16 +29,31 @@ const getMarketplaceIcon = (name: string) => {
       return <ShoppingCart {...props} aria-label="Amazon" />;
     case "hepsiburada":
       return <Package {...props} aria-label="Hepsiburada" />;
+    case "n11":
+      return <Building2 {...props} aria-label="N11" />;
+    case "gittigidiyor":
+      return <Store {...props} aria-label="GittiGidiyor" />;
+    case "ciceksepeti":
+      return <Factory {...props} aria-label="Çiçeksepeti" />;
     default:
       return <Store {...props} aria-label={name} />;
   }
 };
 
 export const MarketplacesTab = ({ product }: MarketplacesTabProps) => {
+  const allMarketplaces = [
+    { name: "Trendyol", isConnected: false, ...product.marketplaces.find(m => m.name.toLowerCase() === "trendyol") },
+    { name: "Amazon", isConnected: false, ...product.marketplaces.find(m => m.name.toLowerCase() === "amazon") },
+    { name: "Hepsiburada", isConnected: false, ...product.marketplaces.find(m => m.name.toLowerCase() === "hepsiburada") },
+    { name: "N11", isConnected: false, ...product.marketplaces.find(m => m.name.toLowerCase() === "n11") },
+    { name: "GittiGidiyor", isConnected: false, ...product.marketplaces.find(m => m.name.toLowerCase() === "gittigidiyor") },
+    { name: "Çiçeksepeti", isConnected: false, ...product.marketplaces.find(m => m.name.toLowerCase() === "ciceksepeti") }
+  ];
+
   return (
-    <Tabs defaultValue={product.marketplaces[0]?.name.toLowerCase() || "trendyol"} className="w-full">
+    <Tabs defaultValue={allMarketplaces[0]?.name.toLowerCase()} className="w-full">
       <TabsList className="w-full flex flex-wrap gap-1">
-        {product.marketplaces.map((marketplace, index) => (
+        {allMarketplaces.map((marketplace, index) => (
           <TabsTrigger 
             key={index} 
             value={marketplace.name.toLowerCase()}
@@ -46,7 +65,7 @@ export const MarketplacesTab = ({ product }: MarketplacesTabProps) => {
         ))}
       </TabsList>
       
-      {product.marketplaces.map((marketplace, index) => (
+      {allMarketplaces.map((marketplace, index) => (
         <TabsContent key={index} value={marketplace.name.toLowerCase()}>
           <div className="grid gap-3 py-2">
             <div className="grid gap-1.5">
