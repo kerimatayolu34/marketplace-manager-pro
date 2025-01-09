@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { CheckCircle, XCircle } from "lucide-react";
 
 interface Product {
   id: string;
@@ -19,6 +20,7 @@ interface Product {
   status: string;
   price: number;
   stock: number;
+  isConnected: boolean;
 }
 
 interface ProductTableProps {
@@ -49,7 +51,14 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableCell>{product.sku}</TableCell>
               <TableCell>{product.category}</TableCell>
               <TableCell>{product.brand}</TableCell>
-              <TableCell>{product.marketplace}</TableCell>
+              <TableCell className="flex items-center gap-2">
+                {product.marketplace}
+                {product.isConnected ? (
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                ) : (
+                  <XCircle className="h-4 w-4 text-red-500" />
+                )}
+              </TableCell>
               <TableCell>
                 <span className={`px-2 py-1 rounded-full text-sm ${
                   product.status === "Satışta" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"
