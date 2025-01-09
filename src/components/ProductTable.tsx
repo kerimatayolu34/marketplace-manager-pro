@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Marketplace {
   name: string;
@@ -54,27 +56,100 @@ const getMarketplaceIcon = (name: string) => {
 
 const ProductEditDialog = ({ product }: { product: Product }) => {
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-[625px]">
       <DialogHeader>
         <DialogTitle>Ürün Düzenle</DialogTitle>
       </DialogHeader>
-      <div className="grid gap-4 py-4">
-        <div className="grid gap-2">
-          <Label htmlFor="name">Ürün Adı</Label>
-          <Input id="name" defaultValue={product.name} />
+      <div className="grid gap-6">
+        <div className="grid gap-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="name">Ürün Adı</Label>
+              <Input id="name" defaultValue={product.name} />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="sku">Ürün Barkodu</Label>
+              <Input id="sku" defaultValue={product.sku} />
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="category">Kategori</Label>
+              <Input id="category" defaultValue={product.category} />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="brand">Marka</Label>
+              <Input id="brand" defaultValue={product.brand} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="price">Fiyat</Label>
+              <Input id="price" type="number" defaultValue={product.price} />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="stock">Stok</Label>
+              <Input id="stock" type="number" defaultValue={product.stock} />
+            </div>
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="status">Durum</Label>
+            <Select defaultValue={product.status}>
+              <SelectTrigger>
+                <SelectValue placeholder="Durum seçiniz" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Satışta">Satışta</SelectItem>
+                <SelectItem value="Stokta Yok">Stokta Yok</SelectItem>
+                <SelectItem value="Taslak">Taslak</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="grid gap-2">
-          <Label htmlFor="sku">Ürün Barkodu</Label>
-          <Input id="sku" defaultValue={product.sku} />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="price">Fiyat</Label>
-          <Input id="price" type="number" defaultValue={product.price} />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="stock">Stok</Label>
-          <Input id="stock" type="number" defaultValue={product.stock} />
-        </div>
+
+        <Tabs defaultValue={product.marketplaces[0]?.name.toLowerCase() || "trendyol"} className="w-full">
+          <TabsList className="w-full justify-start">
+            {product.marketplaces.map((marketplace, index) => (
+              <TabsTrigger 
+                key={index} 
+                value={marketplace.name.toLowerCase()}
+                className="flex items-center gap-2"
+              >
+                {getMarketplaceIcon(marketplace.name)}
+                {marketplace.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {product.marketplaces.map((marketplace, index) => (
+            <TabsContent key={index} value={marketplace.name.toLowerCase()}>
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <Label>Pazaryeri Durumu</Label>
+                  <Select defaultValue={marketplace.isConnected ? "connected" : "disconnected"}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="connected">Bağlı</SelectItem>
+                      <SelectItem value="disconnected">Bağlı Değil</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label>Pazaryeri Ürün Kodu</Label>
+                  <Input placeholder="Pazaryeri ürün kodunu giriniz" />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Pazaryeri Komisyon Oranı (%)</Label>
+                  <Input type="number" placeholder="Komisyon oranını giriniz" />
+                </div>
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
     </DialogContent>
   );
