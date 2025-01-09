@@ -1,8 +1,8 @@
 export interface Marketplace {
   name: string;
   isConnected: boolean;
-  marketplaceId?: string;  // Specific ID for each marketplace
-  pimCategoryId?: string;  // Trendyol category ID
+  marketplaceId?: string;
+  pimCategoryId?: string;
   shipmentAddressId?: string;
   cargoCompanyId?: string;
 }
@@ -26,7 +26,16 @@ export interface ShippingInfo {
   desi: number;
   cargoCompanyId?: string;
   shipmentAddressId?: string;
-  deliveryDuration: number;  // in days
+  deliveryDuration: number;
+  maxDeliveryDays?: number;
+  dispatchTime?: number;
+}
+
+export interface ProductVariant {
+  variantSku: string;
+  attributes: ProductAttribute[];
+  stock: number;
+  price: number;
 }
 
 export interface Product {
@@ -34,9 +43,9 @@ export interface Product {
   name: string;
   sku: string;
   category: string;
-  categoryId?: string;  // Platform specific category ID
+  categoryId?: string;
   brand: string;
-  brandId?: string;    // Platform specific brand ID
+  brandId?: string;
   marketplaces: Marketplace[];
   status: string;
   price: number;
@@ -63,4 +72,12 @@ export interface Product {
     weight: number;
     desi: number;
   };
+  // Yeni eklenen Hepsiburada alanları
+  guaranteePeriod?: number;
+  tax?: number;
+  productCondition?: "NEW" | "USED";
+  warranty?: string;
+  variants?: ProductVariant[];
+  customTextOptionAttributes?: ProductAttribute[];
+  productStockStatus?: "ACTIVE" | "PASSIVE";
 }
