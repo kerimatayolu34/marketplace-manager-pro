@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/Navbar";
 import { ProductTable } from "@/components/ProductTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
