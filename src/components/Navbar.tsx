@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { useMobile } from "@/hooks/use-mobile"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export function Navbar() {
-  const isMobile = useMobile()
+  const isMobile = useIsMobile()
 
   const links = [
     {
