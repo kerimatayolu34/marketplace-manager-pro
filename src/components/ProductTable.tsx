@@ -38,6 +38,11 @@ interface Product {
   price: number;
   stock: number;
   source: "Platform" | "Buyer";
+  description?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  weight?: string;
+  dimensions?: string;
 }
 
 interface ProductTableProps {
@@ -119,21 +124,68 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
               </SelectContent>
             </Select>
           </div>
+
+          <div className="space-y-4">
+            <div className="grid gap-2">
+              <Label>Ürün Açıklaması</Label>
+              <Textarea 
+                value={product.description || "Ürün açıklaması bulunmamaktadır."} 
+                readOnly 
+                className="bg-gray-50"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Oluşturulma Tarihi</Label>
+                <Input 
+                  value={product.createdAt || "Belirtilmemiş"} 
+                  readOnly 
+                  className="bg-gray-50"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label>Son Güncelleme</Label>
+                <Input 
+                  value={product.updatedAt || "Belirtilmemiş"} 
+                  readOnly 
+                  className="bg-gray-50"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Ağırlık</Label>
+                <Input 
+                  value={product.weight || "Belirtilmemiş"} 
+                  readOnly 
+                  className="bg-gray-50"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label>Boyutlar</Label>
+                <Input 
+                  value={product.dimensions || "Belirtilmemiş"} 
+                  readOnly 
+                  className="bg-gray-50"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <Tabs defaultValue={product.marketplaces[0]?.name.toLowerCase() || "trendyol"} className="w-full">
-          <TabsList className="w-full justify-start">
-            {product.marketplaces.map((marketplace, index) => (
-              <TabsTrigger 
-                key={index} 
-                value={marketplace.name.toLowerCase()}
-                className="flex items-center gap-2"
-              >
-                {getMarketplaceIcon(marketplace.name)}
-                {marketplace.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          {product.marketplaces.map((marketplace, index) => (
+            <TabsTrigger 
+              key={index} 
+              value={marketplace.name.toLowerCase()}
+              className="flex items-center gap-2"
+            >
+              {getMarketplaceIcon(marketplace.name)}
+              {marketplace.name}
+            </TabsTrigger>
+          ))}
           {product.marketplaces.map((marketplace, index) => (
             <TabsContent key={index} value={marketplace.name.toLowerCase()}>
               <div className="grid gap-4 py-4">
