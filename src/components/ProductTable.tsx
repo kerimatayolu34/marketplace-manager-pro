@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { CheckCircle, XCircle } from "lucide-react";
+import { ShoppingCart, Store, Package } from "lucide-react";
 
 interface Marketplace {
   name: string;
@@ -30,6 +30,19 @@ interface Product {
 interface ProductTableProps {
   products: Product[];
 }
+
+const getMarketplaceIcon = (name: string) => {
+  switch (name.toLowerCase()) {
+    case "trendyol":
+      return <Store className="h-5 w-5 text-orange-500" />;
+    case "amazon":
+      return <ShoppingCart className="h-5 w-5 text-yellow-500" />;
+    case "hepsiburada":
+      return <Package className="h-5 w-5 text-red-500" />;
+    default:
+      return <Store className="h-5 w-5 text-gray-500" />;
+  }
+};
 
 export const ProductTable = ({ products }: ProductTableProps) => {
   return (
@@ -56,17 +69,19 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableCell>{product.category}</TableCell>
               <TableCell>{product.brand}</TableCell>
               <TableCell>
-                <div className="flex flex-col gap-1">
-                  {product.marketplaces.map((marketplace, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      {marketplace.name}
-                      {marketplace.isConnected ? (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                      ) : (
-                        <XCircle className="h-4 w-4 text-red-500" />
-                      )}
-                    </div>
-                  ))}
+                <div className="flex gap-2">
+                  {product.marketplaces
+                    .filter((marketplace) => marketplace.isConnected)
+                    .map((marketplace, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-1 bg-gray-100 rounded-full px-3 py-1"
+                        title={marketplace.name}
+                      >
+                        {getMarketplaceIcon(marketplace.name)}
+                        <span className="text-sm">{marketplace.name}</span>
+                      </div>
+                    ))}
                 </div>
               </TableCell>
               <TableCell>
