@@ -1,4 +1,4 @@
-import { Box, Building, Factory, Garage, ShoppingBag, ShoppingCart, Storefront, Truck } from "lucide-react"
+import { Box, Building2, Factory, Package, ShoppingBag, ShoppingCart, Store, Truck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -7,7 +7,7 @@ import { useState } from "react"
 interface Marketplace {
   id: string
   name: string
-  icon: React.ComponentType
+  icon: React.ComponentType<any>
 }
 
 export default function Integrations() {
@@ -27,7 +27,7 @@ export default function Integrations() {
     {
       id: "shopify",
       name: "Shopify",
-      icon: Storefront
+      icon: Store
     },
     {
       id: "n11",
@@ -42,7 +42,7 @@ export default function Integrations() {
     {
       id: "hepsiburada",
       name: "Hepsiburada",
-      icon: Storefront
+      icon: Store
     },
     {
       id: "ciceksepeti",
@@ -52,12 +52,12 @@ export default function Integrations() {
     {
       id: "morhipo",
       name: "Morhipo",
-      icon: Building
+      icon: Building2
     },
     {
       id: "boyner",
       name: "Boyner",
-      icon: Storefront
+      icon: Store
     },
     {
       id: "pazarama",
@@ -67,17 +67,17 @@ export default function Integrations() {
     {
       id: "aliexpress",
       name: "AliExpress",
-      icon: Garage
+      icon: Package
     },
     {
       id: "epttavm",
       name: "ePttAVM",
-      icon: Storefront
+      icon: Store
     },
     {
       id: "evidea",
       name: "Evidea",
-      icon: Storefront
+      icon: Store
     }
   ]
 
@@ -97,7 +97,7 @@ export default function Integrations() {
                 className="w-full h-32 flex flex-col items-center justify-center gap-4 hover:bg-accent bg-card"
                 onClick={() => setSelectedMarketplace(marketplace)}
               >
-                <marketplace.icon className="h-8 w-8" />
+                <marketplace.icon size={32} />
                 <span className="font-medium">{marketplace.name}</span>
               </Button>
             </DialogTrigger>
