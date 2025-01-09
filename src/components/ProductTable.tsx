@@ -191,7 +191,7 @@ const ProductEditDialog = ({ product }: { product: Product }) => {
           {/* Right Column */}
           <div>
             <Tabs defaultValue={product.marketplaces[0]?.name.toLowerCase() || "trendyol"} className="w-full">
-              <TabsList className="w-full">
+              <TabsList className="w-full flex flex-wrap gap-1">
                 {product.marketplaces.map((marketplace, index) => (
                   <TabsTrigger 
                     key={index} 
@@ -260,6 +260,36 @@ export const ProductTable = ({ products }: ProductTableProps) => {
   const handleBulkAction = () => {
     console.log('Selected products:', selectedProducts);
   };
+
+  const sampleProducts = [
+    {
+      id: "1",
+      name: "Sample Product 1",
+      sku: "SKU123",
+      category: "Electronics",
+      brand: "Brand X",
+      marketplaces: [
+        { name: "Trendyol", isConnected: true },
+        { name: "Amazon", isConnected: true },
+        { name: "Hepsiburada", isConnected: true },
+        { name: "N11", isConnected: true },
+        { name: "GittiGidiyor", isConnected: false },
+        { name: "Çiçeksepeti", isConnected: true },
+        { name: "Morhipo", isConnected: true },
+        { name: "Boyner", isConnected: false }
+      ],
+      status: "Satışta",
+      price: 299.99,
+      stock: 50,
+      source: "Platform" as const,
+      description: "This is a sample product description",
+      createdAt: "2024-02-20",
+      updatedAt: "2024-02-25",
+      weight: "1.5 kg",
+      dimensions: "30x20x10 cm"
+    },
+    // ... keep existing code (other products)
+  ];
 
   return (
     <div className="space-y-4">
