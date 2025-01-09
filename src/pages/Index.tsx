@@ -64,7 +64,7 @@ const Index = () => {
               <ShoppingCart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+{totalOrders}</div>
+              <div className="text-2xl font-bold">{totalOrders}</div>
               <p className="text-xs text-muted-foreground">+201 geçen aydan</p>
             </CardContent>
           </Card>
