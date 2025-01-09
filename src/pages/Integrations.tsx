@@ -2,6 +2,7 @@ import { Box, Building2, Factory, Package, ShoppingBag, ShoppingCart, Store, Tru
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
 import { useState } from "react"
 
 interface Marketplace {
@@ -12,6 +13,8 @@ interface Marketplace {
 
 export default function Integrations() {
   const [selectedMarketplace, setSelectedMarketplace] = useState<Marketplace | null>(null)
+  const [isEnabled, setIsEnabled] = useState(false)
+  const [autoSync, setAutoSync] = useState(false)
 
   const marketplaces: Marketplace[] = [
     {
@@ -98,38 +101,77 @@ export default function Integrations() {
                 onClick={() => setSelectedMarketplace(marketplace)}
               >
                 <marketplace.icon size={32} />
-                <span className="font-medium">{marketplace.name}</span>
+                <span className="font-medium text-lg">{marketplace.name}</span>
               </Button>
             </DialogTrigger>
             
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>{marketplace.name} API Bilgileri</DialogTitle>
+                <DialogTitle>{marketplace.name} Entegrasyonu</DialogTitle>
               </DialogHeader>
               
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <label htmlFor="apiKey" className="text-sm font-medium">API Key</label>
-                  <Input
-                    id="apiKey"
-                    placeholder="API Key giriniz"
-                    className="w-full"
-                  />
+              <div className="space-y-6 py-4">
+                <p className="text-muted-foreground">
+                  Entegrasyon için gerekli API bilgilerini girin ve bağlantıyı test edin
+                </p>
+
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="apiKey" className="text-sm font-medium">API Anahtarı</label>
+                    <Input
+                      id="apiKey"
+                      placeholder={`${marketplace.name} API anahtarınızı girin`}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="secretKey" className="text-sm font-medium">Gizli Anahtar</label>
+                    <Input
+                      id="secretKey"
+                      type="password"
+                      placeholder={`${marketplace.name} gizli anahtarınızı girin`}
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div className="space-y-4 pt-4">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <div className="text-sm font-medium">Entegrasyonu Etkinleştir</div>
+                        <div className="text-sm text-muted-foreground">
+                          Bu pazaryeri entegrasyonunu etkinleştirin veya devre dışı bırakın
+                        </div>
+                      </div>
+                      <Switch
+                        checked={isEnabled}
+                        onCheckedChange={setIsEnabled}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <div className="text-sm font-medium">Otomatik Senkronizasyon</div>
+                        <div className="text-sm text-muted-foreground">
+                          Ürünleri ve siparişleri otomatik olarak senkronize et
+                        </div>
+                      </div>
+                      <Switch
+                        checked={autoSync}
+                        onCheckedChange={setAutoSync}
+                      />
+                    </div>
+                  </div>
                 </div>
-                
-                <div className="space-y-2">
-                  <label htmlFor="secretKey" className="text-sm font-medium">Secret Key</label>
-                  <Input
-                    id="secretKey"
-                    type="password"
-                    placeholder="Secret Key giriniz"
-                    className="w-full"
-                  />
+
+                <div className="flex gap-4 pt-4">
+                  <Button variant="outline" className="flex-1">
+                    Bağlantıyı Test Et
+                  </Button>
+                  <Button className="flex-1">
+                    Değişiklikleri Kaydet
+                  </Button>
                 </div>
-                
-                <Button className="w-full">
-                  Kaydet
-                </Button>
               </div>
             </DialogContent>
           </Dialog>
