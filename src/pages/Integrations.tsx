@@ -1,3 +1,4 @@
+import { Box, Building, Factory, Garage, ShoppingBag, ShoppingCart, Storefront, Truck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -6,7 +7,7 @@ import { useState } from "react"
 interface Marketplace {
   id: string
   name: string
-  logo: string
+  icon: React.ComponentType
 }
 
 export default function Integrations() {
@@ -16,25 +17,78 @@ export default function Integrations() {
     {
       id: "trendyol",
       name: "Trendyol",
-      logo: "/lovable-uploads/9198dc57-587a-471c-9cf7-05237ba11d53.png"
+      icon: ShoppingBag
+    },
+    {
+      id: "amazon",
+      name: "Amazon",
+      icon: Box
+    },
+    {
+      id: "shopify",
+      name: "Shopify",
+      icon: Storefront
     },
     {
       id: "n11",
       name: "N11",
-      logo: "/placeholder.svg"
+      icon: ShoppingCart
+    },
+    {
+      id: "gittigidiyor",
+      name: "GittiGidiyor",
+      icon: Box
     },
     {
       id: "hepsiburada",
       name: "Hepsiburada",
-      logo: "/placeholder.svg"
+      icon: Storefront
+    },
+    {
+      id: "ciceksepeti",
+      name: "Çiçeksepeti",
+      icon: Truck
+    },
+    {
+      id: "morhipo",
+      name: "Morhipo",
+      icon: Building
+    },
+    {
+      id: "boyner",
+      name: "Boyner",
+      icon: Storefront
+    },
+    {
+      id: "pazarama",
+      name: "Pazarama",
+      icon: Factory
+    },
+    {
+      id: "aliexpress",
+      name: "AliExpress",
+      icon: Garage
+    },
+    {
+      id: "epttavm",
+      name: "ePttAVM",
+      icon: Storefront
+    },
+    {
+      id: "evidea",
+      name: "Evidea",
+      icon: Storefront
     }
   ]
 
   return (
     <div className="container mx-auto p-6 bg-background text-foreground min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Pazaryeri Entegrasyonları</h1>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold">Entegrasyonlar</h1>
+        <p className="text-muted-foreground mt-1">Pazaryeri entegrasyonlarınızı yapılandırın</p>
+      </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {marketplaces.map((marketplace) => (
           <Dialog key={marketplace.id}>
             <DialogTrigger asChild>
@@ -43,11 +97,7 @@ export default function Integrations() {
                 className="w-full h-32 flex flex-col items-center justify-center gap-4 hover:bg-accent bg-card"
                 onClick={() => setSelectedMarketplace(marketplace)}
               >
-                <img 
-                  src={marketplace.logo} 
-                  alt={`${marketplace.name} logo`}
-                  className="h-16 w-16 object-contain"
-                />
+                <marketplace.icon className="h-8 w-8" />
                 <span className="font-medium">{marketplace.name}</span>
               </Button>
             </DialogTrigger>
