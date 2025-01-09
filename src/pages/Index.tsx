@@ -5,17 +5,23 @@ import { useQuery } from "@tanstack/react-query";
 
 // Mock API call - Replace with real API when available
 const fetchSalesData = async () => {
-  // This is a mock implementation
-  const response = await fetch('/api/products');
-  const products = await response.json();
-  return products;
+  return [
+    { id: 1, price: 1500, status: 'active' },
+    { id: 2, price: 2000, status: 'active' },
+    { id: 3, price: 1800, status: 'active' },
+    { id: 4, price: 2500, status: 'active' },
+    { id: 5, price: 1200, status: 'active' },
+    { id: 6, price: 3000, status: 'active' },
+    { id: 7, price: 2200, status: 'active' },
+    { id: 8, price: 1900, status: 'active' },
+  ];
 };
 
 const calculateMonthlyData = (data: any[]) => {
   const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran'];
-  return months.map(month => ({
+  return months.map((month, index) => ({
     name: month,
-    value: Math.floor(Math.random() * 3000) + 1000, // Replace with real calculation
+    value: data.reduce((acc, curr) => acc + curr.price, 0) / months.length,
   }));
 };
 
@@ -23,7 +29,6 @@ const Index = () => {
   const { data: salesData, isLoading } = useQuery({
     queryKey: ['sales-data'],
     queryFn: fetchSalesData,
-    // Mock data while API is not available
     initialData: [],
   });
 
