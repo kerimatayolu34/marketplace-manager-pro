@@ -1,6 +1,32 @@
 export interface Marketplace {
   name: string;
   isConnected: boolean;
+  marketplaceId?: string;  // Specific ID for each marketplace
+  pimCategoryId?: string;  // Trendyol category ID
+  shipmentAddressId?: string;
+  cargoCompanyId?: string;
+}
+
+export interface ProductAttribute {
+  name: string;
+  value: string;
+}
+
+export interface ProductImage {
+  url: string;
+  order: number;
+  isDefault: boolean;
+}
+
+export interface ShippingInfo {
+  width: number;
+  length: number;
+  height: number;
+  weight: number;
+  desi: number;
+  cargoCompanyId?: string;
+  shipmentAddressId?: string;
+  deliveryDuration: number;  // in days
 }
 
 export interface Product {
@@ -8,7 +34,9 @@ export interface Product {
   name: string;
   sku: string;
   category: string;
+  categoryId?: string;  // Platform specific category ID
   brand: string;
+  brandId?: string;    // Platform specific brand ID
   marketplaces: Marketplace[];
   status: string;
   price: number;
@@ -17,8 +45,6 @@ export interface Product {
   description?: string;
   createdAt?: string;
   updatedAt?: string;
-  weight?: string;
-  dimensions?: string;
   origin?: string;
   stockCountry?: string;
   hsCode?: string;
@@ -27,6 +53,9 @@ export interface Product {
   currency?: string;
   vat?: string;
   cost?: number;
+  images?: ProductImage[];
+  attributes?: ProductAttribute[];
+  shipping?: ShippingInfo;
   packageDimensions?: {
     width: number;
     length: number;

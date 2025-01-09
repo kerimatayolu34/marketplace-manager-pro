@@ -10,15 +10,60 @@ const products = [
     name: "Giysi İçin Vakumlu Saklama Torbası",
     sku: "AL48YT0048",
     category: "Hurç",
+    categoryId: "411",
     brand: "Buffer",
+    brandId: "1522",
     marketplaces: [
-      { name: "Trendyol", isConnected: true },
-      { name: "Amazon", isConnected: true }
+      { 
+        name: "Trendyol", 
+        isConnected: true,
+        marketplaceId: "15789456",
+        pimCategoryId: "411",
+        shipmentAddressId: "12345",
+        cargoCompanyId: "10"
+      },
+      { 
+        name: "Amazon", 
+        isConnected: true,
+        marketplaceId: "AMZN123456"
+      }
     ],
     status: "Satışta",
     price: 394.99,
     stock: 690,
-    source: "Platform" as const
+    source: "Platform" as const,
+    images: [
+      {
+        url: "/placeholder.svg",
+        order: 1,
+        isDefault: true
+      },
+      {
+        url: "/placeholder.svg",
+        order: 2,
+        isDefault: false
+      }
+    ],
+    attributes: [
+      {
+        name: "Renk",
+        value: "Şeffaf"
+      },
+      {
+        name: "Boyut",
+        value: "Büyük"
+      }
+    ],
+    shipping: {
+      width: 30,
+      length: 40,
+      height: 10,
+      weight: 0.5,
+      desi: 2,
+      deliveryDuration: 3,
+      cargoCompanyId: "10",
+      shipmentAddressId: "12345"
+    }
   },
   {
     id: "2",
