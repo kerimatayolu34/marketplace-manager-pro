@@ -1,39 +1,57 @@
-import { Link } from "react-router-dom";
-import { User } from "lucide-react";
+import { Link } from "react-router-dom"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { useMobile } from "@/hooks/use-mobile"
 
-export const Navbar = () => {
+export function Navbar() {
+  const isMobile = useMobile()
+
+  const links = [
+    {
+      href: "/",
+      label: "Dashboard"
+    },
+    {
+      href: "/products",
+      label: "Ürünler"
+    },
+    {
+      href: "/orders",
+      label: "Siparişler"
+    },
+    {
+      href: "/integrations",
+      label: "Entegrasyonlar"
+    }
+  ]
+
   return (
-    <nav className="border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="flex items-center space-x-2">
-                <img src="/lovable-uploads/9198dc57-587a-471c-9cf7-05237ba11d53.png" alt="Logo" className="h-8 w-auto" />
+    <nav className={cn(
+      "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    )}>
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 hidden md:flex">
+          <Link className="mr-6 flex items-center space-x-2" to="/">
+            <span className="hidden font-bold sm:inline-block">
+              Lovable
+            </span>
+          </Link>
+          <nav className="flex items-center space-x-6 text-sm font-medium">
+            {links.map(({ href, label }) => (
+              <Link
+                key={href}
+                to={href}
+                className={cn(
+                  "transition-colors hover:text-foreground/80",
+                  href === window.location.pathname ? "text-foreground" : "text-foreground/60"
+                )}
+              >
+                {label}
               </Link>
-            </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link to="/" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900">
-                Anasayfa
-              </Link>
-              <Link to="/products" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900">
-                Ürünler
-              </Link>
-              <Link to="/orders" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900">
-                Siparişler
-              </Link>
-              <Link to="/integrations" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900">
-                Entegrasyonlar
-              </Link>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <button className="p-2 rounded-full text-gray-500 hover:text-gray-900">
-              <User className="h-6 w-6" />
-            </button>
-          </div>
+            ))}
+          </nav>
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
