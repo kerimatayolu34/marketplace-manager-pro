@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Store, ShoppingBag, Package } from "lucide-react";
 
 interface Product {
   id: string;
@@ -36,6 +37,19 @@ const placeholderImages = [
   "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
   "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
 ];
+
+const getMarketplaceIcon = (name: string) => {
+  switch (name.toLowerCase()) {
+    case 'trendyol':
+      return <Store className="inline-block mr-1" size={14} />;
+    case 'amazon':
+      return <ShoppingBag className="inline-block mr-1" size={14} />;
+    case 'hepsiburada':
+      return <Package className="inline-block mr-1" size={14} />;
+    default:
+      return <Store className="inline-block mr-1" size={14} />;
+  }
+};
 
 export const ProductTable = ({ products }: ProductTableProps) => {
   return (
@@ -74,12 +88,13 @@ export const ProductTable = ({ products }: ProductTableProps) => {
                 {product.marketplaces.map((marketplace, i) => (
                   <span
                     key={i}
-                    className={`inline-block mr-1 px-2 py-1 rounded-full text-xs ${
+                    className={`inline-flex items-center mr-1 px-2 py-1 rounded-full text-xs ${
                       marketplace.isConnected
                         ? "bg-green-100 text-green-800"
                         : "bg-gray-100 text-gray-800"
                     }`}
                   >
+                    {getMarketplaceIcon(marketplace.name)}
                     {marketplace.name}
                   </span>
                 ))}
