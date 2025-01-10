@@ -36,12 +36,15 @@ export interface ProductVariant {
   attributes: ProductAttribute[];
   stock: number;
   price: number;
+  barcode?: string;
+  listPrice?: number;
 }
 
 export interface Product {
   id: string;
   name: string;
   sku: string;
+  barcode?: string;
   category: string;
   categoryId?: string;
   brand: string;
@@ -49,6 +52,7 @@ export interface Product {
   marketplaces: Marketplace[];
   status: string;
   price: number;
+  listPrice?: number;
   stock: number;
   source: "Platform" | "Buyer";
   description?: string;
@@ -72,12 +76,33 @@ export interface Product {
     weight: number;
     desi: number;
   };
-  // Yeni eklenen Hepsiburada alanları
+  productMainId?: string;
+  variants?: ProductVariant[];
+  customTextOptionAttributes?: ProductAttribute[];
+  productStockStatus?: "ACTIVE" | "PASSIVE";
+  approved?: boolean;
+  rejected?: boolean;
+  hasImage?: boolean;
+  onSale?: boolean;
+  pimCategoryId?: string;
+  shipmentAddressId?: string;
+  cargoCompanyId?: string;
+  deliveryDuration?: number;
+  maxDeliveryDays?: number;
+  dispatchTime?: number;
+  dimensionalWeight?: number;
+  description1?: string;
+  description2?: string;
+  description3?: string;
+  description4?: string;
+  gender?: string;
+  ageGroup?: string;
+  color?: string;
+  size?: string;
+  warrantyPeriod?: number;
+  warrantyType?: string;
   guaranteePeriod?: number;
   tax?: number;
   productCondition?: "NEW" | "USED";
   warranty?: string;
-  variants?: ProductVariant[];
-  customTextOptionAttributes?: ProductAttribute[];
-  productStockStatus?: "ACTIVE" | "PASSIVE";
 }

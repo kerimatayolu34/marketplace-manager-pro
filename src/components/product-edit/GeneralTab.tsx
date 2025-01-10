@@ -1,5 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Product } from "@/types/product"
 
 interface GeneralTabProps {
@@ -11,67 +13,104 @@ export const GeneralTab = ({ product }: GeneralTabProps) => {
     <div className="grid gap-4">
       <div className="grid grid-cols-2 gap-3">
         <div className="grid gap-1.5">
-          <Label htmlFor="name">Ürün Adı</Label>
-          <Input id="name" defaultValue={product.name} readOnly className="bg-gray-50" />
+          <Label htmlFor="barcode">Barkod</Label>
+          <Input id="barcode" defaultValue={product.barcode} />
+        </div>
+        <div className="grid gap-1.5">
+          <Label htmlFor="title">Ürün Adı</Label>
+          <Input id="title" defaultValue={product.name} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="grid gap-1.5">
+          <Label htmlFor="productMainId">Ana Ürün ID</Label>
+          <Input id="productMainId" defaultValue={product.productMainId} readOnly className="bg-gray-50" />
         </div>
         <div className="grid gap-1.5">
           <Label htmlFor="brand">Marka</Label>
-          <Input id="brand" defaultValue={product.brand} readOnly className="bg-gray-50" />
+          <Input id="brand" defaultValue={product.brand} />
+        </div>
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="description">Ürün Açıklaması</Label>
+        <Textarea 
+          id="description" 
+          defaultValue={product.description} 
+          className="min-h-[100px]"
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="grid gap-1.5">
+          <Label htmlFor="categoryId">Kategori ID</Label>
+          <Input id="categoryId" defaultValue={product.categoryId} />
+        </div>
+        <div className="grid gap-1.5">
+          <Label htmlFor="quantity">Stok Adedi</Label>
+          <Input id="quantity" type="number" defaultValue={product.stock} />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="grid gap-1.5">
-          <Label htmlFor="origin">Menşei</Label>
-          <Input id="origin" defaultValue={product.origin || "Belirtilmemiş"} readOnly className="bg-gray-50" />
+          <Label htmlFor="listPrice">Liste Fiyatı</Label>
+          <Input id="listPrice" type="number" defaultValue={product.listPrice || product.price} />
         </div>
         <div className="grid gap-1.5">
-          <Label htmlFor="stockCountry">Stok Ülkesi</Label>
-          <Input id="stockCountry" defaultValue={product.stockCountry || "Belirtilmemiş"} readOnly className="bg-gray-50" />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div className="grid gap-1.5">
-          <Label htmlFor="sku">Stok Kodu</Label>
-          <Input id="sku" defaultValue={product.sku} readOnly className="bg-gray-50" />
-        </div>
-        <div className="grid gap-1.5">
-          <Label htmlFor="hsCode">HS Kod/GTIP</Label>
-          <Input id="hsCode" defaultValue={product.hsCode || "Belirtilmemiş"} readOnly className="bg-gray-50" />
+          <Label htmlFor="salePrice">Satış Fiyatı</Label>
+          <Input id="salePrice" type="number" defaultValue={product.price} />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="grid gap-1.5">
-          <Label htmlFor="stock">Stok Miktarı</Label>
-          <Input id="stock" type="number" defaultValue={product.stock} />
+          <Label htmlFor="vatRate">KDV Oranı (%)</Label>
+          <Input id="vatRate" type="number" defaultValue={product.vat || 18} />
         </div>
         <div className="grid gap-1.5">
-          <Label htmlFor="packageQuantity">Koli İçi Adet</Label>
-          <Input id="packageQuantity" type="number" defaultValue={product.packageQuantity || 0} />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div className="grid gap-1.5">
-          <Label htmlFor="price">Satış Fiyatı (KDV Dahil)</Label>
-          <Input id="price" type="number" defaultValue={product.price} />
-        </div>
-        <div className="grid gap-1.5">
-          <Label htmlFor="currency">Döviz</Label>
-          <Input id="currency" defaultValue={product.currency || "TL"} readOnly className="bg-gray-50" />
+          <Label htmlFor="currencyType">Para Birimi</Label>
+          <Select defaultValue={product.currency || "TRY"}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="TRY">TL</SelectItem>
+              <SelectItem value="USD">USD</SelectItem>
+              <SelectItem value="EUR">EUR</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="grid gap-1.5">
-          <Label htmlFor="vat">KDV (%)</Label>
-          <Input id="vat" defaultValue={product.vat || "20,00"} readOnly className="bg-gray-50" />
+          <Label htmlFor="stockCode">Stok Kodu</Label>
+          <Input id="stockCode" defaultValue={product.sku} />
         </div>
         <div className="grid gap-1.5">
-          <Label htmlFor="cost">Maliyet (KDV Dahil)</Label>
-          <Input id="cost" type="number" defaultValue={product.cost || product.price} readOnly className="bg-gray-50" />
+          <Label htmlFor="dimensionalWeight">Desi</Label>
+          <Input 
+            id="dimensionalWeight" 
+            type="number" 
+            defaultValue={product.shipping?.desi || product.packageDimensions?.desi} 
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="grid gap-1.5">
+          <Label htmlFor="cargoCompanyId">Kargo Firması ID</Label>
+          <Input id="cargoCompanyId" defaultValue={product.shipping?.cargoCompanyId} />
+        </div>
+        <div className="grid gap-1.5">
+          <Label htmlFor="deliveryDuration">Teslimat Süresi (Gün)</Label>
+          <Input 
+            id="deliveryDuration" 
+            type="number" 
+            defaultValue={product.shipping?.deliveryDuration || 3} 
+          />
         </div>
       </div>
     </div>
