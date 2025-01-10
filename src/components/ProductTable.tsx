@@ -7,174 +7,116 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Store, Package } from "lucide-react";
-import {
-  Dialog,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
-import { ProductEditDialog } from "./ProductEditDialog";
-import { Product } from "@/types/product";
+import { Link } from "react-router-dom";
+
+interface Product {
+  id: string;
+  name: string;
+  sku: string;
+  category: string;
+  brand: string;
+  marketplaces: Array<{
+    name: string;
+    isConnected: boolean;
+  }>;
+  status: string;
+  price: number;
+  stock: number;
+  source: "Platform" | "Buyer";
+}
 
 interface ProductTableProps {
   products: Product[];
 }
 
-const getMarketplaceIcon = (name: string) => {
-  const props = {
-    className: `h-5 w-5 ${
-      name.toLowerCase() === "trendyol" ? "text-[#FF602E]" :
-      name.toLowerCase() === "amazon" ? "text-yellow-500" :
-      name.toLowerCase() === "hepsiburada" ? "text-red-500" : "text-gray-500"
-    }`
-  };
-
-  switch (name.toLowerCase()) {
-    case "trendyol":
-      return <Store {...props} aria-label="Trendyol" />;
-    case "amazon":
-      return <ShoppingCart {...props} aria-label="Amazon" />;
-    case "hepsiburada":
-      return <Package {...props} aria-label="Hepsiburada" />;
-    default:
-      return <Store {...props} aria-label={name} />;
-  }
-};
+const placeholderImages = [
+  "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+  "https://images.unsplash.com/photo-1518770660439-4636190af475",
+  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+  "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+];
 
 export const ProductTable = ({ products }: ProductTableProps) => {
-  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
-
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedProducts(products.map(product => product.id));
-    } else {
-      setSelectedProducts([]);
-    }
-  };
-
-  const handleSelectProduct = (productId: string, checked: boolean) => {
-    if (checked) {
-      setSelectedProducts([...selectedProducts, productId]);
-    } else {
-      setSelectedProducts(selectedProducts.filter(id => id !== productId));
-    }
-  };
-
-  const handleBulkAction = () => {
-    console.log('Selected products:', selectedProducts);
-  };
-
   return (
-    <div className="space-y-4">
-      <div className="flex justify-end">
-        <Button
-          onClick={handleBulkAction}
-          disabled={selectedProducts.length === 0}
-          className="gap-2 bg-[#FF602E] text-white hover:bg-[#FF602E]/90 rounded-2xl"
-        >
-          <ShoppingCart className="h-4 w-4" />
-          Toplu Satışa Aç ({selectedProducts.length})
-        </Button>
-      </div>
-      
-      <div className="rounded-2xl border border-[#E3E7F1] bg-white overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow className="hover:bg-[#F2F4F4]/50">
-              <TableHead className="w-[50px] h-10">
-                <Checkbox
-                  checked={selectedProducts.length === products.length}
-                  onCheckedChange={(checked) => handleSelectAll(checked as boolean)}
+    <div className="yt-card">
+      <Table>
+        <TableHeader>
+          <TableRow className="hover:bg-transparent">
+            <TableHead className="text-[#626E99] font-semibold h-10">Görsel</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Ürün Adı</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Barkod</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Kategori</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Marka</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Pazaryeri</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Durum</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Fiyat</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Stok</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Kaynak</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10"></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {products.map((product, index) => (
+            <TableRow key={product.id} className="hover:bg-[#F6F7F7] transition-colors">
+              <TableCell className="h-16">
+                <img 
+                  src={placeholderImages[index % placeholderImages.length]} 
+                  alt={product.name}
+                  className="w-12 h-12 object-cover rounded-lg"
                 />
-              </TableHead>
-              <TableHead className="w-[80px] h-10"></TableHead>
-              <TableHead className="w-[300px] text-[#626C85] h-10">Ürün Bilgisi</TableHead>
-              <TableHead className="text-[#626C85] h-10">Ürün Barkodu</TableHead>
-              <TableHead className="text-[#626C85] h-10">Ürün Kategorisi</TableHead>
-              <TableHead className="text-[#626C85] h-10">Marka</TableHead>
-              <TableHead className="w-[100px] text-[#626C85] h-10">Pazaryeri</TableHead>
-              <TableHead className="text-[#626C85] h-10">Durum</TableHead>
-              <TableHead className="text-[#626C85] h-10">Kaynak</TableHead>
-              <TableHead className="text-[#626C85] h-10">Fiyat</TableHead>
-              <TableHead className="text-[#626C85] h-10">Stok</TableHead>
-              <TableHead></TableHead>
+              </TableCell>
+              <TableCell className="font-medium h-16">{product.name}</TableCell>
+              <TableCell className="h-16">{product.sku}</TableCell>
+              <TableCell className="h-16">{product.category}</TableCell>
+              <TableCell className="h-16">{product.brand}</TableCell>
+              <TableCell className="h-16">
+                {product.marketplaces.map((marketplace, i) => (
+                  <span
+                    key={i}
+                    className={`inline-block mr-1 px-2 py-1 rounded-full text-xs ${
+                      marketplace.isConnected
+                        ? "bg-green-100 text-green-800"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {marketplace.name}
+                  </span>
+                ))}
+              </TableCell>
+              <TableCell className="h-16">
+                <span className={`yt-status-badge ${
+                  product.status === "Satışta" ? "yt-status-success" :
+                  product.status === "Stokta Yok" ? "yt-status-error" :
+                  "yt-status-warning"
+                }`}>
+                  {product.status}
+                </span>
+              </TableCell>
+              <TableCell className="font-semibold h-16">{product.price.toLocaleString('tr-TR')}₺</TableCell>
+              <TableCell className="h-16">{product.stock}</TableCell>
+              <TableCell className="h-16">
+                <span className={`yt-status-badge ${
+                  product.source === "Platform" ? "bg-blue-100 text-blue-800" :
+                  "bg-purple-100 text-purple-800"
+                }`}>
+                  {product.source}
+                </span>
+              </TableCell>
+              <TableCell className="h-16">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  asChild
+                  className="hover:bg-[#FF602E] hover:text-white transition-colors"
+                >
+                  <Link to={`/products/${product.id}`}>Detay</Link>
+                </Button>
+              </TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id} className="hover:bg-[#F2F4F4]/50">
-                <TableCell className="h-16">
-                  <Checkbox
-                    checked={selectedProducts.includes(product.id)}
-                    onCheckedChange={(checked) => 
-                      handleSelectProduct(product.id, checked as boolean)
-                    }
-                  />
-                </TableCell>
-                <TableCell>
-                  <div className="w-12 h-12 relative rounded-lg overflow-hidden border border-[#E3E7F1]">
-                    <img 
-                      src={product.images?.[0]?.url || "/placeholder.svg"} 
-                      alt={product.name}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                </TableCell>
-                <TableCell className="font-medium text-[#081F4D]">{product.name}</TableCell>
-                <TableCell>{product.sku}</TableCell>
-                <TableCell>{product.category}</TableCell>
-                <TableCell>{product.brand}</TableCell>
-                <TableCell>
-                  <div className="flex gap-2">
-                    {product.marketplaces
-                      .filter((marketplace) => marketplace.isConnected)
-                      .map((marketplace, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-center w-8 h-8 bg-[#F2F4F4] rounded-full"
-                          title={marketplace.name}
-                        >
-                          {getMarketplaceIcon(marketplace.name)}
-                        </div>
-                      ))}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className={`px-3 py-1 rounded-full text-sm ${
-                    product.status === "Satışta" ? "bg-green-100 text-green-800" : "bg-[#F2F4F4] text-[#626C85]"
-                  }`}>
-                    {product.status}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className={`px-3 py-1 rounded-full text-sm ${
-                    product.source === "Platform" ? "bg-blue-100 text-blue-800" : "bg-purple-100 text-purple-800"
-                  }`}>
-                    {product.source}
-                  </span>
-                </TableCell>
-                <TableCell className="text-[#081F4D]">{product.price}₺</TableCell>
-                <TableCell>{product.stock}</TableCell>
-                <TableCell>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        className="text-[#FF602E] hover:text-[#FF602E]/90 hover:bg-[#F2F4F4]"
-                      >
-                        Düzenle
-                      </Button>
-                    </DialogTrigger>
-                    <ProductEditDialog product={product} />
-                  </Dialog>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 };
