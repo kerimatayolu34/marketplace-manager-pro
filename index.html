@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ürün Yönetimi Demo</title>
+    <title>Yönetim Paneli</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -30,6 +30,7 @@
         text-decoration: none;
         padding: 0.5rem 1rem;
         border-radius: 6px;
+        cursor: pointer;
       }
 
       .nav-link:hover {
@@ -39,6 +40,14 @@
       .nav-link.active {
         color: #FF602E;
         background-color: #F2F4F4;
+      }
+
+      .content {
+        display: none;
+      }
+
+      .content.active {
+        display: block;
       }
 
       .dashboard {
@@ -73,186 +82,201 @@
         margin-top: 0.5rem;
       }
 
-      .button {
-        padding: 10px 20px;
-        background-color: #FF602E;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-
-      .button:hover {
-        background-color: #e55529;
-      }
-
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
+      table {
         width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      .modal-content {
-        position: relative;
-        background-color: white;
-        margin: 5% auto;
-        padding: 20px;
-        width: 80%;
-        max-width: 800px;
-        border-radius: 12px;
-      }
-
-      .close {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        font-size: 24px;
-        cursor: pointer;
-      }
-
-      .tabs {
-        display: flex;
-        gap: 10px;
-        margin: 20px 0;
-        background-color: #F2F4F4;
-        padding: 8px;
+        border-collapse: collapse;
+        background: white;
         border-radius: 8px;
+        overflow: hidden;
       }
 
-      .tab {
-        padding: 8px 16px;
-        border: none;
-        background: none;
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        color: #626E99;
+        font-weight: 600;
+      }
+
+      .status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
+
+      .status-active {
+        background-color: #e6f4ea;
+        color: #1e7e34;
+      }
+
+      .status-pending {
+        background-color: #fff3e0;
+        color: #e65100;
+      }
+
+      .integration-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .integration-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
         cursor: pointer;
-        border-radius: 6px;
+        transition: transform 0.2s;
       }
 
-      .tab.active {
-        background-color: white;
-        color: #FF602E;
+      .integration-card:hover {
+        transform: translateY(-2px);
       }
 
-      .tab-content {
-        display: none;
-      }
-
-      .tab-content.active {
-        display: block;
+      .integration-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
       }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-links">
-        <a href="#" class="nav-link active">Dashboard</a>
-        <a href="#" class="nav-link">Ürünler</a>
-        <a href="#" class="nav-link">Siparişler</a>
-        <a href="#" class="nav-link">Entegrasyonlar</a>
+        <a class="nav-link active" onclick="showContent('dashboard')">Dashboard</a>
+        <a class="nav-link" onclick="showContent('orders')">Siparişler</a>
+        <a class="nav-link" onclick="showContent('products')">Ürünler</a>
+        <a class="nav-link" onclick="showContent('integrations')">Entegrasyonlar</a>
       </div>
     </nav>
 
-    <div class="dashboard">
-      <div class="card">
-        <div class="card-title">Toplam Satış</div>
-        <div class="card-value">₺45.850</div>
-        <div class="card-change">+20.1% geçen aydan</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Toplam Sipariş</div>
-        <div class="card-value">156</div>
-        <div class="card-change">+15 geçen aydan</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Aktif Ürünler</div>
-        <div class="card-value">48</div>
-        <div class="card-change">+3 geçen aydan</div>
-      </div>
-      <div class="card">
-        <div class="card-title">Büyüme Oranı</div>
-        <div class="card-value">12%</div>
-        <div class="card-change">+2% geçen aydan</div>
+    <div id="dashboard" class="content active">
+      <div class="dashboard">
+        <div class="card">
+          <div class="card-title">Toplam Satış</div>
+          <div class="card-value">₺45.850</div>
+          <div class="card-change">+20.1% geçen aydan</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Toplam Sipariş</div>
+          <div class="card-value">156</div>
+          <div class="card-change">+15 geçen aydan</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Aktif Ürünler</div>
+          <div class="card-value">48</div>
+          <div class="card-change">+3 geçen aydan</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Büyüme Oranı</div>
+          <div class="card-value">12%</div>
+          <div class="card-change">+2% geçen aydan</div>
+        </div>
       </div>
     </div>
 
-    <button class="button" onclick="openModal()">Ürün Düzenle</button>
+    <div id="orders" class="content">
+      <table>
+        <thead>
+          <tr>
+            <th>Sipariş No</th>
+            <th>Müşteri</th>
+            <th>Tutar</th>
+            <th>Durum</th>
+            <th>Tarih</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#12345</td>
+            <td>Ahmet Yılmaz</td>
+            <td>₺1,250</td>
+            <td><span class="status status-active">Tamamlandı</span></td>
+            <td>2024-01-15</td>
+          </tr>
+          <tr>
+            <td>#12346</td>
+            <td>Mehmet Demir</td>
+            <td>₺850</td>
+            <td><span class="status status-pending">Beklemede</span></td>
+            <td>2024-01-14</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <div id="editModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Ürün Düzenle</h2>
-        
-        <div class="tabs">
-          <button class="tab active" onclick="openTab('general')">Genel Bilgiler</button>
-          <button class="tab" onclick="openTab('marketplaces')">Pazaryeri Bilgileri</button>
-          <button class="tab" onclick="openTab('images')">Görseller</button>
-          <button class="tab" onclick="openTab('attributes')">Özellikler</button>
-          <button class="tab" onclick="openTab('shipping')">Kargo Bilgileri</button>
+    <div id="products" class="content">
+      <table>
+        <thead>
+          <tr>
+            <th>Ürün Adı</th>
+            <th>Stok</th>
+            <th>Fiyat</th>
+            <th>Durum</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ürün A</td>
+            <td>150</td>
+            <td>₺299</td>
+            <td><span class="status status-active">Aktif</span></td>
+          </tr>
+          <tr>
+            <td>Ürün B</td>
+            <td>75</td>
+            <td>₺199</td>
+            <td><span class="status status-active">Aktif</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="integrations" class="content">
+      <div class="integration-grid">
+        <div class="integration-card">
+          <div class="integration-icon">🛍️</div>
+          <h3>Trendyol</h3>
+          <p>API entegrasyonu ekle</p>
         </div>
-
-        <div id="general" class="tab-content active">
-          <h3>Genel Bilgiler</h3>
-          <p>Bu bölümde ürünün genel bilgileri yer alacak.</p>
+        <div class="integration-card">
+          <div class="integration-icon">📦</div>
+          <h3>Hepsiburada</h3>
+          <p>API entegrasyonu ekle</p>
         </div>
-
-        <div id="marketplaces" class="tab-content">
-          <h3>Pazaryeri Bilgileri</h3>
-          <p>Bu bölümde pazaryeri entegrasyonları yer alacak.</p>
+        <div class="integration-card">
+          <div class="integration-icon">🏪</div>
+          <h3>N11</h3>
+          <p>API entegrasyonu ekle</p>
         </div>
-
-        <div id="images" class="tab-content">
-          <h3>Görseller</h3>
-          <p>Bu bölümde ürün görselleri yer alacak.</p>
-        </div>
-
-        <div id="attributes" class="tab-content">
-          <h3>Özellikler</h3>
-          <p>Bu bölümde ürün özellikleri yer alacak.</p>
-        </div>
-
-        <div id="shipping" class="tab-content">
-          <h3>Kargo Bilgileri</h3>
-          <p>Bu bölümde kargo bilgileri yer alacak.</p>
+        <div class="integration-card">
+          <div class="integration-icon">🌐</div>
+          <h3>Amazon</h3>
+          <p>API entegrasyonu ekle</p>
         </div>
       </div>
     </div>
 
     <script>
-      function openModal() {
-        document.getElementById('editModal').style.display = 'block';
-      }
-
-      function closeModal() {
-        document.getElementById('editModal').style.display = 'none';
-      }
-
-      function openTab(tabName) {
-        // Tüm tab içeriklerini gizle
-        const tabContents = document.getElementsByClassName('tab-content');
-        for (let content of tabContents) {
+      function showContent(contentId) {
+        // Tüm içerikleri gizle
+        document.querySelectorAll('.content').forEach(content => {
           content.classList.remove('active');
-        }
-
-        // Tüm tablardan active sınıfını kaldır
-        const tabs = document.getElementsByClassName('tab');
-        for (let tab of tabs) {
-          tab.classList.remove('active');
-        }
-
-        // Seçilen tab içeriğini göster ve tabı aktif yap
-        document.getElementById(tabName).classList.add('active');
-        event.currentTarget.classList.add('active');
-      }
-
-      // Modal dışına tıklandığında kapat
-      window.onclick = function(event) {
-        const modal = document.getElementById('editModal');
-        if (event.target == modal) {
-          closeModal();
-        }
+        });
+        
+        // Tüm menü linklerinden active sınıfını kaldır
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+        });
+        
+        // Seçilen içeriği göster
+        document.getElementById(contentId).classList.add('active');
+        
+        // Tıklanan menü linkini aktif yap
+        event.target.classList.add('active');
       }
     </script>
   </body>
