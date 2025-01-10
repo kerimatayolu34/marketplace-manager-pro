@@ -3,15 +3,239 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>marketplace-manager-pro</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-    <meta property="og:image" content="/og-image.png" />
-  </head>
+    <title>Ürün Düzenleme Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
 
+      .button {
+        padding: 10px 20px;
+        background-color: #FF602E;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        position: relative;
+        background-color: white;
+        margin: 5% auto;
+        padding: 20px;
+        width: 80%;
+        max-width: 925px;
+        border-radius: 16px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        background-color: #F2F4F4;
+        padding: 8px;
+        border-radius: 16px;
+        margin: 20px 0;
+      }
+
+      .tab {
+        padding: 10px 20px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+
+      .tab.active {
+        background-color: white;
+        color: #FF602E;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .form-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      label {
+        font-size: 14px;
+        color: #374151;
+      }
+
+      input {
+        padding: 8px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+      }
+
+      .marketplace-icons {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .marketplace-icon {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .marketplace-icon.active {
+        background-color: #f3f4f6;
+      }
+    </style>
+  </head>
   <body>
-    <div id="root"></div>
+    <button class="button" onclick="openModal()">Ürün Düzenle</button>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Ürün Düzenle</h2>
+        
+        <div class="tabs">
+          <button class="tab active" onclick="openTab('general')">Genel Bilgiler</button>
+          <button class="tab" onclick="openTab('marketplaces')">Pazaryeri Bilgileri</button>
+          <button class="tab" onclick="openTab('images')">Görseller</button>
+          <button class="tab" onclick="openTab('attributes')">Özellikler</button>
+          <button class="tab" onclick="openTab('shipping')">Kargo Bilgileri</button>
+        </div>
+
+        <div id="general" class="tab-content active">
+          <div class="form-group">
+            <div class="input-group">
+              <label>Ürün Adı</label>
+              <input type="text" value="Test Ürün" readonly>
+            </div>
+            <div class="input-group">
+              <label>Marka</label>
+              <input type="text" value="Test Marka" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <label>Stok Kodu</label>
+              <input type="text" value="TST001" readonly>
+            </div>
+            <div class="input-group">
+              <label>Stok Miktarı</label>
+              <input type="number" value="100">
+            </div>
+          </div>
+        </div>
+
+        <div id="marketplaces" class="tab-content">
+          <div class="marketplace-icons">
+            <div class="marketplace-icon active">
+              <img src="https://cdn.dsmcdn.com/web/logo/ty-web.svg" width="24" height="24">
+              <span>Trendyol</span>
+            </div>
+            <div class="marketplace-icon">
+              <img src="https://www.hepsiburada.com/favicon.ico" width="24" height="24">
+              <span>Hepsiburada</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <label>Pazaryeri Ürün ID</label>
+              <input type="text" placeholder="Pazaryeri ürün ID">
+            </div>
+            <div class="input-group">
+              <label>Pazaryeri Kategori</label>
+              <input type="text" placeholder="Pazaryeri kategori">
+            </div>
+          </div>
+        </div>
+
+        <div id="images" class="tab-content">
+          <p>Görsel yükleme alanı</p>
+        </div>
+
+        <div id="attributes" class="tab-content">
+          <p>Ürün özellikleri</p>
+        </div>
+
+        <div id="shipping" class="tab-content">
+          <p>Kargo bilgileri</p>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      function openModal() {
+        document.getElementById('editModal').style.display = 'block';
+      }
+
+      function closeModal() {
+        document.getElementById('editModal').style.display = 'none';
+      }
+
+      function openTab(tabName) {
+        // Hide all tab contents
+        const tabContents = document.getElementsByClassName('tab-content');
+        for (let content of tabContents) {
+          content.classList.remove('active');
+        }
+
+        // Remove active class from all tabs
+        const tabs = document.getElementsByClassName('tab');
+        for (let tab of tabs) {
+          tab.classList.remove('active');
+        }
+
+        // Show selected tab content and activate tab
+        document.getElementById(tabName).classList.add('active');
+        event.currentTarget.classList.add('active');
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function(event) {
+        const modal = document.getElementById('editModal');
+        if (event.target == modal) {
+          closeModal();
+        }
+      }
+    </script>
   </body>
 </html>
