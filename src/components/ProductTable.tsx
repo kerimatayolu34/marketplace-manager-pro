@@ -57,7 +57,7 @@ export const ProductTable = ({ products }: ProductTableProps) => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   return (
-    <div className="yt-card">
+    <div className="rounded-lg border bg-white">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
@@ -104,10 +104,10 @@ export const ProductTable = ({ products }: ProductTableProps) => {
                 ))}
               </TableCell>
               <TableCell className="h-16">
-                <span className={`yt-status-badge ${
-                  product.status === "Satışta" ? "yt-status-success" :
-                  product.status === "Stokta Yok" ? "yt-status-error" :
-                  "yt-status-warning"
+                <span className={`inline-flex px-2 py-1 rounded-full text-xs ${
+                  product.status === "Satışta" ? "bg-green-100 text-green-800" :
+                  product.status === "Stokta Yok" ? "bg-red-100 text-red-800" :
+                  "bg-yellow-100 text-yellow-800"
                 }`}>
                   {product.status}
                 </span>
@@ -115,7 +115,7 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableCell className="font-semibold h-16">{product.price.toLocaleString('tr-TR')}₺</TableCell>
               <TableCell className="h-16">{product.stock}</TableCell>
               <TableCell className="h-16">
-                <span className={`yt-status-badge ${
+                <span className={`inline-flex px-2 py-1 rounded-full text-xs ${
                   product.source === "Platform" ? "bg-blue-100 text-blue-800" :
                   "bg-purple-100 text-purple-800"
                 }`}>
