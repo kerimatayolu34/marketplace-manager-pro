@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Store, ShoppingBag, Package } from "lucide-react";
+import { Store, ShoppingBag, Package, Pencil } from "lucide-react";
 import { useState } from "react";
 import { ProductEditDialog } from "./ProductEditDialog";
 
@@ -71,7 +71,7 @@ export const ProductTable = ({ products }: ProductTableProps) => {
             <TableHead className="text-[#626E99] font-semibold h-10">Fiyat</TableHead>
             <TableHead className="text-[#626E99] font-semibold h-10">Stok</TableHead>
             <TableHead className="text-[#626E99] font-semibold h-10">Kaynak</TableHead>
-            <TableHead className="text-[#626E99] font-semibold h-10"></TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">İşlemler</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -125,11 +125,12 @@ export const ProductTable = ({ products }: ProductTableProps) => {
               <TableCell className="h-16">
                 <div className="flex gap-2">
                   <Button 
-                    variant="ghost" 
+                    variant="outline" 
                     size="sm"
                     onClick={() => setSelectedProduct(product)}
-                    className="hover:bg-[#FF602E] hover:text-white transition-colors"
+                    className="flex items-center gap-1 bg-white border-[#FF602E] text-[#FF602E] hover:bg-[#FF602E] hover:text-white transition-colors"
                   >
+                    <Pencil size={14} />
                     Düzenle
                   </Button>
                   <Button 
