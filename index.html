@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ürün Düzenleme Demo</title>
+    <title>Ürün Yönetimi Demo</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -12,13 +12,78 @@
         background-color: #f5f5f5;
       }
 
+      .navbar {
+        background-color: white;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .nav-link {
+        color: #626E99;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+      }
+
+      .nav-link:hover {
+        background-color: #F2F4F4;
+      }
+
+      .nav-link.active {
+        color: #FF602E;
+        background-color: #F2F4F4;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      .card-title {
+        color: #626E99;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-value {
+        color: #081F4D;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .card-change {
+        color: #626E99;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
       .button {
         padding: 10px 20px;
         background-color: #FF602E;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #e55529;
       }
 
       .modal {
@@ -37,10 +102,8 @@
         margin: 5% auto;
         padding: 20px;
         width: 80%;
-        max-width: 925px;
-        border-radius: 16px;
-        max-height: 90vh;
-        overflow-y: auto;
+        max-width: 800px;
+        border-radius: 12px;
       }
 
       .close {
@@ -54,18 +117,18 @@
       .tabs {
         display: flex;
         gap: 10px;
+        margin: 20px 0;
         background-color: #F2F4F4;
         padding: 8px;
-        border-radius: 16px;
-        margin: 20px 0;
+        border-radius: 8px;
       }
 
       .tab {
-        padding: 10px 20px;
+        padding: 8px 16px;
         border: none;
         background: none;
         cursor: pointer;
-        border-radius: 12px;
+        border-radius: 6px;
       }
 
       .tab.active {
@@ -80,52 +143,41 @@
       .tab-content.active {
         display: block;
       }
-
-      .form-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-bottom: 16px;
-      }
-
-      .input-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      label {
-        font-size: 14px;
-        color: #374151;
-      }
-
-      input {
-        padding: 8px;
-        border: 1px solid #d1d5db;
-        border-radius: 6px;
-      }
-
-      .marketplace-icons {
-        display: flex;
-        gap: 16px;
-        margin-bottom: 16px;
-      }
-
-      .marketplace-icon {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-
-      .marketplace-icon.active {
-        background-color: #f3f4f6;
-      }
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <div class="nav-links">
+        <a href="#" class="nav-link active">Dashboard</a>
+        <a href="#" class="nav-link">Ürünler</a>
+        <a href="#" class="nav-link">Siparişler</a>
+        <a href="#" class="nav-link">Entegrasyonlar</a>
+      </div>
+    </nav>
+
+    <div class="dashboard">
+      <div class="card">
+        <div class="card-title">Toplam Satış</div>
+        <div class="card-value">₺45.850</div>
+        <div class="card-change">+20.1% geçen aydan</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Toplam Sipariş</div>
+        <div class="card-value">156</div>
+        <div class="card-change">+15 geçen aydan</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Aktif Ürünler</div>
+        <div class="card-value">48</div>
+        <div class="card-change">+3 geçen aydan</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Büyüme Oranı</div>
+        <div class="card-value">12%</div>
+        <div class="card-change">+2% geçen aydan</div>
+      </div>
+    </div>
+
     <button class="button" onclick="openModal()">Ürün Düzenle</button>
 
     <div id="editModal" class="modal">
@@ -142,66 +194,32 @@
         </div>
 
         <div id="general" class="tab-content active">
-          <div class="form-group">
-            <div class="input-group">
-              <label>Ürün Adı</label>
-              <input type="text" value="Test Ürün" readonly>
-            </div>
-            <div class="input-group">
-              <label>Marka</label>
-              <input type="text" value="Test Marka" readonly>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <label>Stok Kodu</label>
-              <input type="text" value="TST001" readonly>
-            </div>
-            <div class="input-group">
-              <label>Stok Miktarı</label>
-              <input type="number" value="100">
-            </div>
-          </div>
+          <h3>Genel Bilgiler</h3>
+          <p>Bu bölümde ürünün genel bilgileri yer alacak.</p>
         </div>
 
         <div id="marketplaces" class="tab-content">
-          <div class="marketplace-icons">
-            <div class="marketplace-icon active">
-              <img src="https://cdn.dsmcdn.com/web/logo/ty-web.svg" width="24" height="24">
-              <span>Trendyol</span>
-            </div>
-            <div class="marketplace-icon">
-              <img src="https://www.hepsiburada.com/favicon.ico" width="24" height="24">
-              <span>Hepsiburada</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <label>Pazaryeri Ürün ID</label>
-              <input type="text" placeholder="Pazaryeri ürün ID">
-            </div>
-            <div class="input-group">
-              <label>Pazaryeri Kategori</label>
-              <input type="text" placeholder="Pazaryeri kategori">
-            </div>
-          </div>
+          <h3>Pazaryeri Bilgileri</h3>
+          <p>Bu bölümde pazaryeri entegrasyonları yer alacak.</p>
         </div>
 
         <div id="images" class="tab-content">
-          <p>Görsel yükleme alanı</p>
+          <h3>Görseller</h3>
+          <p>Bu bölümde ürün görselleri yer alacak.</p>
         </div>
 
         <div id="attributes" class="tab-content">
-          <p>Ürün özellikleri</p>
+          <h3>Özellikler</h3>
+          <p>Bu bölümde ürün özellikleri yer alacak.</p>
         </div>
 
         <div id="shipping" class="tab-content">
-          <p>Kargo bilgileri</p>
+          <h3>Kargo Bilgileri</h3>
+          <p>Bu bölümde kargo bilgileri yer alacak.</p>
         </div>
       </div>
     </div>
 
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script>
       function openModal() {
         document.getElementById('editModal').style.display = 'block';
@@ -212,24 +230,24 @@
       }
 
       function openTab(tabName) {
-        // Hide all tab contents
+        // Tüm tab içeriklerini gizle
         const tabContents = document.getElementsByClassName('tab-content');
         for (let content of tabContents) {
           content.classList.remove('active');
         }
 
-        // Remove active class from all tabs
+        // Tüm tablardan active sınıfını kaldır
         const tabs = document.getElementsByClassName('tab');
         for (let tab of tabs) {
           tab.classList.remove('active');
         }
 
-        // Show selected tab content and activate tab
+        // Seçilen tab içeriğini göster ve tabı aktif yap
         document.getElementById(tabName).classList.add('active');
         event.currentTarget.classList.add('active');
       }
 
-      // Close modal when clicking outside
+      // Modal dışına tıklandığında kapat
       window.onclick = function(event) {
         const modal = document.getElementById('editModal');
         if (event.target == modal) {
