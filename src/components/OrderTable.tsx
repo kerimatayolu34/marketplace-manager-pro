@@ -27,29 +27,29 @@ interface OrderTableProps {
 
 export const OrderTable = ({ orders }: OrderTableProps) => {
   return (
-    <div className="rounded-md border">
+    <div className="yt-card">
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>Sipariş No</TableHead>
-            <TableHead>Müşteri</TableHead>
-            <TableHead>Pazaryeri</TableHead>
-            <TableHead>Kaynak</TableHead>
-            <TableHead>Durum</TableHead>
-            <TableHead>Tarih</TableHead>
-            <TableHead>Toplam</TableHead>
-            <TableHead>Ürün Adedi</TableHead>
-            <TableHead></TableHead>
+          <TableRow className="hover:bg-transparent">
+            <TableHead className="text-[#626E99] font-semibold">Sipariş No</TableHead>
+            <TableHead className="text-[#626E99] font-semibold">Müşteri</TableHead>
+            <TableHead className="text-[#626E99] font-semibold">Pazaryeri</TableHead>
+            <TableHead className="text-[#626E99] font-semibold">Kaynak</TableHead>
+            <TableHead className="text-[#626E99] font-semibold">Durum</TableHead>
+            <TableHead className="text-[#626E99] font-semibold">Tarih</TableHead>
+            <TableHead className="text-[#626E99] font-semibold">Toplam</TableHead>
+            <TableHead className="text-[#626E99] font-semibold">Ürün Adedi</TableHead>
+            <TableHead className="text-[#626E99] font-semibold"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {orders.map((order) => (
-            <TableRow key={order.id}>
-              <TableCell>{order.orderNumber}</TableCell>
+            <TableRow key={order.id} className="hover:bg-[#F6F7F7] transition-colors">
+              <TableCell className="font-medium">{order.orderNumber}</TableCell>
               <TableCell>{order.customerName}</TableCell>
               <TableCell>{order.marketplace}</TableCell>
               <TableCell>
-                <span className={`px-2 py-1 rounded-full text-sm ${
+                <span className={`yt-status-badge ${
                   order.source === "Platform" ? "bg-blue-100 text-blue-800" :
                   "bg-purple-100 text-purple-800"
                 }`}>
@@ -57,19 +57,24 @@ export const OrderTable = ({ orders }: OrderTableProps) => {
                 </span>
               </TableCell>
               <TableCell>
-                <span className={`px-2 py-1 rounded-full text-sm ${
-                  order.status === "Tamamlandı" ? "bg-green-100 text-green-800" :
-                  order.status === "Hazırlanıyor" ? "bg-yellow-100 text-yellow-800" :
-                  "bg-red-100 text-red-800"
+                <span className={`yt-status-badge ${
+                  order.status === "Tamamlandı" ? "yt-status-success" :
+                  order.status === "Hazırlanıyor" ? "yt-status-warning" :
+                  "yt-status-error"
                 }`}>
                   {order.status}
                 </span>
               </TableCell>
               <TableCell>{new Date(order.date).toLocaleDateString('tr-TR')}</TableCell>
-              <TableCell>{order.total.toLocaleString('tr-TR')}₺</TableCell>
+              <TableCell className="font-semibold">{order.total.toLocaleString('tr-TR')}₺</TableCell>
               <TableCell>{order.items}</TableCell>
               <TableCell>
-                <Button variant="ghost" size="sm" asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  asChild
+                  className="hover:bg-[#FF602E] hover:text-white transition-colors"
+                >
                   <Link to={`/orders/${order.id}`}>Detay</Link>
                 </Button>
               </TableCell>

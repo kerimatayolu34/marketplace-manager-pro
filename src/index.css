@@ -13,26 +13,29 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 244 75% 67%;
+    /* Ana renk olarak Yenitoptanci'nin turuncu rengini kullanıyoruz */
+    --primary: 16 100% 59%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    /* İkincil renk olarak açık gri tonunu kullanıyoruz */
+    --secondary: 220 14% 96%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 244 75% 67%;
+    --accent: 16 100% 59%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    /* Yenitoptanci'nin border renklerini kullanıyoruz */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 }
 
@@ -41,6 +44,56 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#F2F4F4] text-foreground font-sans;
   }
+}
+
+/* Yenitoptanci'nin tablo stillerini ekliyoruz */
+.table-container {
+  @apply bg-white rounded-2xl p-4 shadow-sm;
+}
+
+/* Yenitoptanci'nin buton stillerini ekliyoruz */
+.yt-button {
+  @apply rounded-2xl bg-white text-[#090E24] hover:bg-gray-50 transition-colors;
+}
+
+.yt-button-primary {
+  @apply rounded-2xl bg-[#FF602E] text-white hover:bg-[#e55529] transition-colors;
+}
+
+/* Yenitoptanci'nin kart stillerini ekliyoruz */
+.yt-card {
+  @apply bg-white rounded-2xl p-4 border border-[#E3E7F1];
+}
+
+/* Yenitoptanci'nin başlık stillerini ekliyoruz */
+.yt-title {
+  @apply text-[#081F4D] text-2xl font-semibold leading-8;
+}
+
+.yt-subtitle {
+  @apply text-[#626E99] text-base font-semibold leading-4;
+}
+
+/* Yenitoptanci'nin form element stillerini ekliyoruz */
+.yt-input-group {
+  @apply border border-[#E3E7F1] rounded-2xl overflow-hidden;
+}
+
+/* Yenitoptanci'nin durum badge'lerini ekliyoruz */
+.yt-status-badge {
+  @apply px-3 py-1 rounded-full text-sm font-semibold;
+}
+
+.yt-status-success {
+  @apply bg-green-100 text-green-800;
+}
+
+.yt-status-warning {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.yt-status-error {
+  @apply bg-red-100 text-red-800;
 }
