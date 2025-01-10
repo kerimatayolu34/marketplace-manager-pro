@@ -82,34 +82,44 @@ export const ProductTable = ({ products }: ProductTableProps) => {
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-[#F2F4F4]/50">
-              <TableHead className="w-[50px]">
+              <TableHead className="w-[50px] h-10">
                 <Checkbox
                   checked={selectedProducts.length === products.length}
                   onCheckedChange={(checked) => handleSelectAll(checked as boolean)}
                 />
               </TableHead>
-              <TableHead className="w-[300px] text-[#626C85]">Ürün Bilgisi</TableHead>
-              <TableHead className="text-[#626C85]">Ürün Barkodu</TableHead>
-              <TableHead className="text-[#626C85]">Ürün Kategorisi</TableHead>
-              <TableHead className="text-[#626C85]">Marka</TableHead>
-              <TableHead className="w-[100px] text-[#626C85]">Pazaryeri</TableHead>
-              <TableHead className="text-[#626C85]">Durum</TableHead>
-              <TableHead className="text-[#626C85]">Kaynak</TableHead>
-              <TableHead className="text-[#626C85]">Fiyat</TableHead>
-              <TableHead className="text-[#626C85]">Stok</TableHead>
+              <TableHead className="w-[80px] h-10"></TableHead>
+              <TableHead className="w-[300px] text-[#626C85] h-10">Ürün Bilgisi</TableHead>
+              <TableHead className="text-[#626C85] h-10">Ürün Barkodu</TableHead>
+              <TableHead className="text-[#626C85] h-10">Ürün Kategorisi</TableHead>
+              <TableHead className="text-[#626C85] h-10">Marka</TableHead>
+              <TableHead className="w-[100px] text-[#626C85] h-10">Pazaryeri</TableHead>
+              <TableHead className="text-[#626C85] h-10">Durum</TableHead>
+              <TableHead className="text-[#626C85] h-10">Kaynak</TableHead>
+              <TableHead className="text-[#626C85] h-10">Fiyat</TableHead>
+              <TableHead className="text-[#626C85] h-10">Stok</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {products.map((product) => (
               <TableRow key={product.id} className="hover:bg-[#F2F4F4]/50">
-                <TableCell>
+                <TableCell className="h-16">
                   <Checkbox
                     checked={selectedProducts.includes(product.id)}
                     onCheckedChange={(checked) => 
                       handleSelectProduct(product.id, checked as boolean)
                     }
                   />
+                </TableCell>
+                <TableCell>
+                  <div className="w-12 h-12 relative rounded-lg overflow-hidden border border-[#E3E7F1]">
+                    <img 
+                      src={product.images?.[0]?.url || "/placeholder.svg"} 
+                      alt={product.name}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
                 </TableCell>
                 <TableCell className="font-medium text-[#081F4D]">{product.name}</TableCell>
                 <TableCell>{product.sku}</TableCell>

@@ -31,24 +31,24 @@ export const OrderTable = ({ orders }: OrderTableProps) => {
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
-            <TableHead className="text-[#626E99] font-semibold">Sipariş No</TableHead>
-            <TableHead className="text-[#626E99] font-semibold">Müşteri</TableHead>
-            <TableHead className="text-[#626E99] font-semibold">Pazaryeri</TableHead>
-            <TableHead className="text-[#626E99] font-semibold">Kaynak</TableHead>
-            <TableHead className="text-[#626E99] font-semibold">Durum</TableHead>
-            <TableHead className="text-[#626E99] font-semibold">Tarih</TableHead>
-            <TableHead className="text-[#626E99] font-semibold">Toplam</TableHead>
-            <TableHead className="text-[#626E99] font-semibold">Ürün Adedi</TableHead>
-            <TableHead className="text-[#626E99] font-semibold"></TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Sipariş No</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Müşteri</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Pazaryeri</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Kaynak</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Durum</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Tarih</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Toplam</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10">Ürün Adedi</TableHead>
+            <TableHead className="text-[#626E99] font-semibold h-10"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {orders.map((order) => (
             <TableRow key={order.id} className="hover:bg-[#F6F7F7] transition-colors">
-              <TableCell className="font-medium">{order.orderNumber}</TableCell>
-              <TableCell>{order.customerName}</TableCell>
-              <TableCell>{order.marketplace}</TableCell>
-              <TableCell>
+              <TableCell className="font-medium h-12">{order.orderNumber}</TableCell>
+              <TableCell className="h-12">{order.customerName}</TableCell>
+              <TableCell className="h-12">{order.marketplace}</TableCell>
+              <TableCell className="h-12">
                 <span className={`yt-status-badge ${
                   order.source === "Platform" ? "bg-blue-100 text-blue-800" :
                   "bg-purple-100 text-purple-800"
@@ -56,7 +56,7 @@ export const OrderTable = ({ orders }: OrderTableProps) => {
                   {order.source}
                 </span>
               </TableCell>
-              <TableCell>
+              <TableCell className="h-12">
                 <span className={`yt-status-badge ${
                   order.status === "Tamamlandı" ? "yt-status-success" :
                   order.status === "Hazırlanıyor" ? "yt-status-warning" :
@@ -65,10 +65,10 @@ export const OrderTable = ({ orders }: OrderTableProps) => {
                   {order.status}
                 </span>
               </TableCell>
-              <TableCell>{new Date(order.date).toLocaleDateString('tr-TR')}</TableCell>
-              <TableCell className="font-semibold">{order.total.toLocaleString('tr-TR')}₺</TableCell>
-              <TableCell>{order.items}</TableCell>
-              <TableCell>
+              <TableCell className="h-12">{new Date(order.date).toLocaleDateString('tr-TR')}</TableCell>
+              <TableCell className="font-semibold h-12">{order.total.toLocaleString('tr-TR')}₺</TableCell>
+              <TableCell className="h-12">{order.items}</TableCell>
+              <TableCell className="h-12">
                 <Button 
                   variant="ghost" 
                   size="sm" 
