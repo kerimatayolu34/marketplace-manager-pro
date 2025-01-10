@@ -9,6 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Store, ShoppingBag, Package } from "lucide-react";
+import { useState } from "react";
+import { ProductEditDialog } from "./ProductEditDialog";
 
 interface Product {
   id: string;
@@ -52,6 +54,8 @@ const getMarketplaceIcon = (name: string) => {
 };
 
 export const ProductTable = ({ products }: ProductTableProps) => {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
   return (
     <div className="yt-card">
       <Table>
@@ -119,19 +123,37 @@ export const ProductTable = ({ products }: ProductTableProps) => {
                 </span>
               </TableCell>
               <TableCell className="h-16">
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  asChild
-                  className="hover:bg-[#FF602E] hover:text-white transition-colors"
-                >
-                  <Link to={`/products/${product.id}`}>Detay</Link>
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setSelectedProduct(product)}
+                    className="hover:bg-[#FF602E] hover:text-white transition-colors"
+                  >
+                    Düzenle
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    asChild
+                    className="hover:bg-[#FF602E] hover:text-white transition-colors"
+                  >
+                    <Link to={`/products/${product.id}`}>Detay</Link>
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+
+      {selectedProduct && (
+        <ProductEditDialog 
+          product={selectedProduct} 
+          open={!!selectedProduct} 
+          onOpenChange={(open) => !open && setSelectedProduct(null)} 
+        />
+      )}
     </div>
   );
 };
