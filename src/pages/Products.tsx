@@ -181,24 +181,29 @@ const Products = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F2F4F4]">
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Ürünler</h1>
+            <h1 className="text-3xl font-bold text-[#081F4D]">Ürünler</h1>
           </div>
           
           <div className="mb-6 flex gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#626C85]" />
               <Input
                 placeholder="Ürün adı veya Ürün barkodu ile ara"
-                className="pl-10"
+                className="pl-10 bg-white border-[#E3E7F1] rounded-2xl"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Button variant="outline">Detaylı Filtrele</Button>
+            <Button 
+              variant="outline" 
+              className="bg-white text-[#090E24] border-[#E3E7F1] rounded-2xl hover:bg-[#F2F4F4]"
+            >
+              Detaylı Filtrele
+            </Button>
           </div>
 
           <ProductTable products={filteredProducts} />
